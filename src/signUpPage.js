@@ -47,6 +47,7 @@ export default function SignIn(props) {
         try {
             const data = await request.post('https://stark-mesa-84010.herokuapp.com/auth/signup', { email, password })
             console.log(data);
+           props.handleUserChange(data.body)
         } catch (e) {
             console.log(e);
         }
