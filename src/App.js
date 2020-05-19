@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Component} from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -10,14 +10,21 @@ import SignUpPage from './signUpPage';
 import DetailPage from './DetailPage';
 import SearchPage from './SearchPage';
 
+import { render } from "@testing-library/react";
 
-export default function App() {
-  return (
-    <Router>
+export default class App extends Component{
+
+  handleUserChange = (newToken) => {
+    this.setState({ token: newToken })
+   
+  }
+  render() {
+    return (
+      <Router>
       
         <Switch>
           <Route path="/SignInPage">
-            <SignInPage />
+            <SignInPage handleUserChange={this.handleUserChange} />
           </Route>
           <Route path="/SignUpPage">
             <SignUpPage />
@@ -31,5 +38,5 @@ export default function App() {
          </Switch>
     </Router>
   );
-};
-
+}
+}
