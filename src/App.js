@@ -7,19 +7,22 @@ import {
 } from "react-router-dom"
 import SignInPage from './signInPage';
 import SignUpPage from './signUpPage';
+import { render } from "@testing-library/react";
 
 export default function App() {
+  
+
   return (
     <Router>
       
-        <Switch>
-          <Route path="/SignInPage">
-            <SignInPage />
-          </Route>
-          <Route path="/SignUpPage">
-            <SignUpPage />
-          </Route> 
-         </Switch>
+      <Switch>
+        <Route path="/SignInPage">
+          <SignInPage />
+        </Route>
+        <Route path="/SignUpPage">
+          <SignUpPage />
+        </Route>
+      </Switch>
     </Router>
   );
 };
