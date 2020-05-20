@@ -46,7 +46,7 @@ export default class App extends Component{
           />
 
           <Route path="/DetailPage/:city" render={(routerProps) => 
-          <DetailPage {...routerProps} />} 
+            <DetailPage token={this.state.token} {...routerProps} />} 
           />
 
           <Route path="/StarredListPage" render={(routerProps) => 

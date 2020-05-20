@@ -45,9 +45,34 @@ const useStyles = makeStyles((theme) => ({
 export default function DetailPage(props) {
   const classes = useStyles();
 
+  // retrieve token for API call -- first try from props, then from localStorage if prop unset (ex. page refresh)
+  const token = props.token || localStorage.getItem('TOKEN')
+
+  // retrieve city name from url param (/:city) for API call
   const cityName = props.match.params.city
 
-//   const [city, setCity] = useState("");
+  // generate date string for munging forecast data; the goal is to give the user an idea of what the IRL stargazing conditions would be in the chosen area on that night
+  // NOTE: on free plan, Weatherstack only returns forecast for the previous day, but I figure this is fine for our MVP as a proof of concept.
+  const todaysDate = () => {
+    // to access Weatherstack data object, we need a string in this format: 'YYYY-MM-DD'
+    // first, get the current date
+    const today = new Date(Date.now())
+
+    // then, pull out values for year/month/day
+    const year = today.getFullYear()
+
+    // both getMonth() and getDate() return an integer, but our date string will need a leading zero before any single-digit integer
+    // to achieve that, we convert the integer to a string, then use the String method padStart() to add a leading zero before any single-digit integer
+    const month = (today.getMonth() + 1) // getMonth() works on base-zero (January is 0), which means we need to add 1 to get the human-understandable number
+        .toString()
+        .padStart(2, 0)
+    const date = (today.getDate() - 1) // because we can only access yesterday's data on the free plan, we need to subtract 1 from today's date
+        .toString()
+        .padStart(2, 0)
+
+    return `${year}-${month}-${date}`
+  }
+
   const [currentData, setCurrentData] = useState({});
   const [forecastData, setForecastData] = useState({});
   const [astroData, setAstroData] = useState({});
@@ -57,28 +82,25 @@ export default function DetailPage(props) {
         console.log('Rendered!')
 
         async function renderDetails() {
-            const locFetch = await request.get(`https://stark-mesa-84010.herokuapp.com/api/location/${cityName}`).set("Authorization", `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNTg5OTI4MzI3fQ.SWJ6LOMspdqM2jGcqQLvbjbAVa-EcT2aPaWiBfUX03M`);
+            const locFetch = await request.get(`https://stark-mesa-84010.herokuapp.com/api/location/${cityName}`).set("Authorization", token);
 
             setLocData(locFetch.body)
 
-            const fetch = await request.get(`https://stark-mesa-84010.herokuapp.com/api/weather/${cityName}`).set("Authorization", `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNTg5OTI4MzI3fQ.SWJ6LOMspdqM2jGcqQLvbjbAVa-EcT2aPaWiBfUX03M`);
+            const fetch = await request.get(`https://stark-mesa-84010.herokuapp.com/api/weather/${cityName}`).set("Authorization", token);
 
-            // setCity(cityName)
             setCurrentData(fetch.body.current)
-            setForecastData(fetch.body.forecast['2020-05-19'])
-            setAstroData(fetch.body.forecast['2020-05-19'].astro)
-            console.log('FETCH:', fetch.body);
-            // data.push(fetch.body.current)
+            setForecastData(fetch.body.forecast[todaysDate()])
+            setAstroData(fetch.body.forecast[todaysDate()].astro)
+            // console.log('FETCH:', fetch.body);
         }
         
         renderDetails()
     }, [])
     
-    console.log('CURRENT DATA STATE:', currentData)
-    console.log('FORECAST DATA STATE:', forecastData)
-    console.log('ASTRO DATA STATE:', astroData)
-    console.log('LOCATION DATA STATE:', locData)
-    // console.log('CITY STATE:', city)
+    // console.log('CURRENT DATA STATE:', currentData)
+    // console.log('FORECAST DATA STATE:', forecastData)
+    // console.log('ASTRO DATA STATE:', astroData)
+    // console.log('LOCATION DATA STATE:', locData)
   
   return (
     <Container component="main" maxWidth="xs">
@@ -88,36 +110,48 @@ export default function DetailPage(props) {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Details for {cityName}
+            Details for {locData.name}, {locData.region}
           </Typography>
           {
               currentData
               ? <Container component="section" maxWidth="xs">
-                  <iframe 
-                  title="starmap"
-                  width="300" 
-                  height="350" 
-                  frameborder="0" 
-                  scrolling="no" 
-                  marginheight="0" 
-                  marginwidth="0" 
-                  src={`https://virtualsky.lco.global/embed/index.html?longitude=${locData.lon}&latitude=${locData.lat}&projection=stereo&constellations=true&constellationlabels=true&meteorshowers=true&live=true`} 
-                  allowTransparency="true"></iframe>
-                    {/* <iframe 
-                        title="starmap" 
-                        width="500" 
+
+                  <Container component="article">
+                    <iframe 
+                        title={`Star Map for ${locData.name}`}
+                        width="300" 
                         height="350" 
                         frameborder="0" 
                         scrolling="no" 
                         marginheight="0" 
                         marginwidth="0" 
-                        src={`http://slowe.github.io/VirtualSky/embed?longitude=${locData.lon}&latitude=${locData.lat}&projection=stereo`} 
-                        allowTransparency="true" /> */}
+                        src={`https://virtualsky.lco.global/embed/index.html?longitude=${locData.lon}&latitude=${locData.lat}&projection=stereo&constellations=true&constellationlabels=true&meteorshowers=true&live=true`} 
+                        allowTransparency="true" />
                     <Typography component="p">
-                            Cloud cover: {currentData.cloudcover} <br/>
-                            Moonrise: {astroData.moonrise} <br />
-                            Max temp: {forecastData.maxtemp} <br />
+                        Star Map created with <Link to="https://slowe.github.io/VirtualSky/">VirtualSky</Link>
                     </Typography>
+                  </Container>
+
+                  <Container component="article" maxWidth="xs">
+                      <Typography component="h1" variant="h6">
+                          Stargazing conditions
+                      </Typography>
+
+                      <Typography component="p">
+                          Average temperature: {forecastData.avgtemp} Celsius
+                      </Typography>
+                      <Typography component="p">
+                          Cloud cover: {currentData.cloudcover}%
+                      </Typography>
+                      <Typography component="p">
+                          Sunset will be around {astroData.sunrise}.
+                      </Typography>
+                      <Typography component="p">
+                          Moonrise will be around {astroData.moonrise}.
+                      </Typography>
+                      
+                  </Container>
+
               </Container>
             : <Typography component="p">
                 Loading...
