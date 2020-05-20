@@ -32,6 +32,7 @@ export default class App extends Component{
       <Router>
         <Header token={this.state.token} handleUserChange={this.handleUserChange}/>
         <Switch>
+
           <Route path="/SignInPage" render={(routerProps) => 
           <SignInPage handleUserChange={this.handleUserChange} {...routerProps} />}
           />
@@ -39,9 +40,10 @@ export default class App extends Component{
             <SignUpPage handleUserChange={this.handleUserChange} {...routerProps} />}
           /> 
           <Route path="/SearchPage">
+
             <SearchPage />
-          </Route>
-          <Route path="/DetailPage">
+          </Route> */}
+          <Route path="/DetailPage/:city">
             <DetailPage />
           </Route>
          </Switch>
