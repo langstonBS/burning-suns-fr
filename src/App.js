@@ -37,7 +37,7 @@ export default class App extends Component{
           {/* <Route path="" >
             <SearchPage />
           </Route> */}
-          <Route path="/DetailPage">
+          <Route path="/DetailPage/:city">
             <DetailPage />
           </Route>
          </Switch>
