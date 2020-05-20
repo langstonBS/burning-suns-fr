@@ -93,7 +93,17 @@ export default function DetailPage(props) {
           {
               currentData
               ? <Container component="section" maxWidth="xs">
-                    <iframe 
+                  <iframe 
+                  title="starmap"
+                  width="300" 
+                  height="350" 
+                  frameborder="0" 
+                  scrolling="no" 
+                  marginheight="0" 
+                  marginwidth="0" 
+                  src={`https://virtualsky.lco.global/embed/index.html?longitude=${locData.lon}&latitude=${locData.lat}&projection=stereo&constellations=true&constellationlabels=true&meteorshowers=true&live=true`} 
+                  allowTransparency="true"></iframe>
+                    {/* <iframe 
                         title="starmap" 
                         width="500" 
                         height="350" 
@@ -102,7 +112,7 @@ export default function DetailPage(props) {
                         marginheight="0" 
                         marginwidth="0" 
                         src={`http://slowe.github.io/VirtualSky/embed?longitude=${locData.lon}&latitude=${locData.lat}&projection=stereo`} 
-                        allowTransparency="true" />
+                        allowTransparency="true" /> */}
                     <Typography component="p">
                             Cloud cover: {currentData.cloudcover} <br/>
                             Moonrise: {astroData.moonrise} <br />
