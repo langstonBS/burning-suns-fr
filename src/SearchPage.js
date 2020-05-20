@@ -58,22 +58,26 @@ const useStyles = makeStyles((theme) => ({
     
 // }
 
-export default function SearchPage() {
+export default function SearchPage(props) {
   const classes = useStyles();
   const [city, setCity] = useState("");
 
-    const handleSubmit = async (e) => {
+  console.log(city)
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const fetch = await request.get(`https://stark-mesa-84010.herokuapp.com/api/location/${city.city}`).set("Authorization", `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNTg5OTExOTk5fQ.5ntiNTGF-m3BId35NJ3vU9ytvYOjj51Y967JUFg6GLI `);
+    const fetch = await request.get(`https://stark-mesa-84010.herokuapp.com/api/location/${city}`).set("Authorization", `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNTg5OTI4MzI3fQ.SWJ6LOMspdqM2jGcqQLvbjbAVa-EcT2aPaWiBfUX03M`);
 
     console.log(fetch);
-    }
+    // props.history.push('/DetailPage')
+
+  }
+
 // const stateArray = useState("name");
 //     console.log({city});
     
-console.log(useState("name"));
+// console.log(useState("name"));
   return (
-      
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
