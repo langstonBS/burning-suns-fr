@@ -3,24 +3,13 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-// import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
-// import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import request from 'superagent';
-
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect
-} from "react-router-dom"
-import DetailPage from "./DetailPage";
 
 function Copyright() {
   return (
@@ -55,16 +44,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// const handleOnChange = event => {
-//   const { name, value } = event.target;
-// //   setInputValues({ [city]: value });
-// console.log(name, value);
-// };
-
-// function CityForm(props) {
-    
-// }
-
 export default function SearchPage(props) {
   const classes = useStyles();
   const [city, setCity] = useState("");
@@ -81,18 +60,7 @@ export default function SearchPage(props) {
     // setSuccess(true);
   }
 
-// const stateArray = useState("name");
-//     console.log({city});
-    
-// console.log(useState("name"));
   return (
-    // <Router>
-    //     <Route exact path="/">
-    //     {success ? <Redirect to='/DetailPage' />
-    //     : 
-    //   }
-    //   </Route>
-    // </Router>
     <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
