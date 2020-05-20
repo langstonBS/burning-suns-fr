@@ -12,6 +12,7 @@ import SearchPage from './SearchPage';
 import StarredListPage from './StarredListPage';
 import PrivateRoute from './PrivateRoute.js';
 import Header from "./Header";
+import AboutUs from './aboutUs';
 
 
 // import { render } from "@testing-library/react";
@@ -41,17 +42,21 @@ export default class App extends Component{
             <SignUpPage handleUserChange={this.handleUserChange} {...routerProps} />}
           /> 
 
-          <Route path="/SearchPage" render={(routerProps) => 
+          <PrivateRoute path="/SearchPage" token = {this.state.token} render={(routerProps) => 
           <SearchPage {...routerProps} />} 
           />
 
-          <Route path="/DetailPage/:city" render={(routerProps) => 
-            <DetailPage token={this.state.token} {...routerProps} />} 
+          <PrivateRoute path="/DetailPage/:city" token = {this.state.token}render={(routerProps) => 
+          <DetailPage {...routerProps} />} 
           />
 
-          <Route path="/StarredListPage" render={(routerProps) => 
+          <PrivateRoute path="/StarredListPage" token = {this.state.token} render={(routerProps) => 
           <StarredListPage {...routerProps} />} 
           />
+          <Route path="/abutUs" render={(routerProps) => 
+          <AboutUs {...routerProps} />} 
+          />
+
 
          </Switch>
     </Router>
