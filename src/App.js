@@ -17,7 +17,7 @@ import Header from "./Header";
 
 export default class App extends Component{
   state = {
-    token: localStorage.getItem('TOKEN')
+    token: ''
   }
 
   handleUserChange = (newToken) => {

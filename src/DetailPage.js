@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -49,26 +47,38 @@ export default function DetailPage(props) {
 
   const cityName = props.match.params.city
 
-  const [city, setCity] = useState("");
-  const [data, setData] = useState({});
+//   const [city, setCity] = useState("");
+  const [currentData, setCurrentData] = useState({});
+  const [forecastData, setForecastData] = useState({});
+  const [astroData, setAstroData] = useState({});
+  const [locData, setLocData] = useState({});
 
   useEffect(() => {
         console.log('Rendered!')
 
         async function renderDetails() {
+            const locFetch = await request.get(`https://stark-mesa-84010.herokuapp.com/api/location/${cityName}`).set("Authorization", `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNTg5OTI4MzI3fQ.SWJ6LOMspdqM2jGcqQLvbjbAVa-EcT2aPaWiBfUX03M`);
+
+            setLocData(locFetch.body)
+
             const fetch = await request.get(`https://stark-mesa-84010.herokuapp.com/api/weather/${cityName}`).set("Authorization", `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNTg5OTI4MzI3fQ.SWJ6LOMspdqM2jGcqQLvbjbAVa-EcT2aPaWiBfUX03M`);
 
-            setCity(cityName)
-            setData(fetch.body.current)
+            // setCity(cityName)
+            setCurrentData(fetch.body.current)
+            setForecastData(fetch.body.forecast['2020-05-19'])
+            setAstroData(fetch.body.forecast['2020-05-19'].astro)
+            console.log('FETCH:', fetch.body);
             // data.push(fetch.body.current)
         }
         
         renderDetails()
     }, [])
     
-    // console.log('FETCH:', fetch.body.current);
-    console.log('DATA STATE:', data)
-    console.log('CITY STATE:', city)
+    console.log('CURRENT DATA STATE:', currentData)
+    console.log('FORECAST DATA STATE:', forecastData)
+    console.log('ASTRO DATA STATE:', astroData)
+    console.log('LOCATION DATA STATE:', locData)
+    // console.log('CITY STATE:', city)
   
   return (
     <Container component="main" maxWidth="xs">
@@ -81,12 +91,26 @@ export default function DetailPage(props) {
             Details for {cityName}
           </Typography>
           {
-              data
-              ? <Typography component="p">
-                    Cloud cover: {data.cloudcover}
-                </Typography>
+              currentData
+              ? <Container component="section" maxWidth="xs">
+                    <iframe 
+                        title="starmap" 
+                        width="500" 
+                        height="350" 
+                        frameborder="0" 
+                        scrolling="no" 
+                        marginheight="0" 
+                        marginwidth="0" 
+                        src={`http://slowe.github.io/VirtualSky/embed?longitude=${locData.lon}&latitude=${locData.lat}&projection=stereo`} 
+                        allowTransparency="true" />
+                    <Typography component="p">
+                            Cloud cover: {currentData.cloudcover} <br/>
+                            Moonrise: {astroData.moonrise} <br />
+                            Max temp: {forecastData.maxtemp} <br />
+                    </Typography>
+              </Container>
             : <Typography component="p">
-                Cloud cover: 
+                Loading...
             </Typography>
           }
         </div>
