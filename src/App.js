@@ -9,6 +9,7 @@ import SignInPage from './signInPage';
 import SignUpPage from './signUpPage';
 import DetailPage from './DetailPage';
 import SearchPage from './SearchPage';
+import StarredListPage from './StarredListPage';
 import PrivateRoute from './PrivateRoute.js';
 import Header from "./Header";
 
@@ -47,6 +48,10 @@ export default class App extends Component{
 
           <Route path="/DetailPage/:city" render={(routerProps) => 
           <DetailPage {...routerProps} />} 
+          />
+
+          <Route path="/StarredListPage" render={(routerProps) => 
+          <StarredListPage {...routerProps} />} 
           />
 
          </Switch>
