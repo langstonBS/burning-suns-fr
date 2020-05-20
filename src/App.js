@@ -19,7 +19,7 @@ export default class App extends Component{
 
   handleUserChange = (newToken) => {
     this.setState({ token: newToken })
-  //here's a cheeky note 
+
   }
   render() {
     return (
