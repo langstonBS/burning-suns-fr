@@ -13,6 +13,9 @@ import SearchPage from './SearchPage';
 import { render } from "@testing-library/react";
 
 export default class App extends Component{
+  state = {
+    token: ''
+  }
 
   handleUserChange = (newToken) => {
     this.setState({ token: newToken })
@@ -29,10 +32,12 @@ export default class App extends Component{
           <Route path="/SignUpPage">
             <SignUpPage />
           </Route> 
-          <Route path="/SearchPage">
+          <Route exact path='/SearchPage' render={(routerProps) => <SearchPage token={this.state.token} {...routerProps} />} 
+              />
+          {/* <Route path="" >
             <SearchPage />
-          </Route>
-          <Route path="/DetailPage">
+          </Route> */}
+          <Route path="/DetailPage/:city">
             <DetailPage />
           </Route>
          </Switch>
