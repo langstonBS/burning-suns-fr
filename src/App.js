@@ -36,16 +36,19 @@ export default class App extends Component{
           <Route path="/SignInPage" render={(routerProps) => 
           <SignInPage handleUserChange={this.handleUserChange} {...routerProps} />}
           />
+
           <Route path="/SignUpPage" render={(routerProps) =>
             <SignUpPage handleUserChange={this.handleUserChange} {...routerProps} />}
           /> 
-          <Route path="/SearchPage">
 
-            <SearchPage />
-          </Route> */}
-          <Route path="/DetailPage/:city">
-            <DetailPage />
-          </Route>
+          <Route path="/SearchPage" render={(routerProps) => 
+          <SearchPage {...routerProps} />} 
+          />
+
+          <Route path="/DetailPage/:city" render={(routerProps) => 
+          <DetailPage {...routerProps} />} 
+          />
+
          </Switch>
     </Router>
   );
