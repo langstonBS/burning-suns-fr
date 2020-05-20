@@ -27,7 +27,6 @@ export default class App extends Component{
   }
   
   render() {
-    console.log(this.state.token);
     return (
       <Router>
         <Header token={this.state.token} handleUserChange={this.handleUserChange}/>

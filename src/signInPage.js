@@ -7,7 +7,8 @@ export default class SignUpPage extends Component{
     return(
       <div>
         <Login
-        handleUserChange={this.props.handleUserChange}
+          handleUserChange={this.props.handleUserChange}
+          url={'https://stark-mesa-84010.herokuapp.com/auth/signin'}
         title={'Sign In'}
         link={
         <Link href="/signUpPage" variant="body2">
