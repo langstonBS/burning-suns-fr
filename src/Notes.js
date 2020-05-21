@@ -7,6 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Checkbox from '@material-ui/core/Checkbox';
+import Calendar from 'react-calendar';
 import { makeStyles } from '@material-ui/core/styles';
 import Post from "./Post.js";
 import { Container } from "@material-ui/core";
@@ -35,8 +36,8 @@ export default function NotesPage(props) {
     let [notes, setNotes] = useState([]);
     const [lat, setLat] = useState(""); //Need to decide if these are derived from selected city or not
     const [lon, setLon] = useState(""); //Need to decide if these are derived from selected city or not
-    const [city, setCity] = useState("Selected City"); //Might not need this or lat lon (if can use endpoint to match or can keep tracking in fe)
-    const [date, setDate] = useState(""); //Will want this value to listen to a dropdown from calendar library
+    const [city, setCity] = useState(""); //Might not need this or lat lon (if can use endpoint to match or can keep tracking in fe)
+    const [date, setDate] = useState((new Date())); //Will want this value to listen to a dropdown from calendar library
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");
     const [wish, setWish] = useState(false);
@@ -59,9 +60,11 @@ export default function NotesPage(props) {
     const postNote = async (e) => {
         e.preventDefault();
         try {
+            console.log(date)
             const posted = await request
                 .post(url, { lat, lon, city, date, title, body, wish })
                 .set("Authorization", token);
+            console.log(posted)
             notes = posted.body; //need to verify that it returns all the notes in the body
         } catch (e) {
             console.error(e);
@@ -74,8 +77,8 @@ export default function NotesPage(props) {
             <Container component='main' maxWidth='xs'>
                 <div classname={classes.paper}>
                     <Typography variant="h6" gutterBottom>
-                        Add a Note
-                </Typography>
+                        Add a {wish ? 'Wish' : 'Note'}
+                    </Typography>
                     <form className={classes.form} onSubmit={postNote}>
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
@@ -115,7 +118,10 @@ export default function NotesPage(props) {
                                 />
                             </Grid>
                             <Grid item xs={12}>
-                                Date Picker [INSERT HERE]
+                                <Calendar
+                                    onChange={setDate}
+                                    value={date}
+                                />
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
@@ -137,7 +143,7 @@ export default function NotesPage(props) {
                                     color="primary"
                                     className={classes.submit}
                                 >
-                                    Sign Up
+                                    Add {wish ? 'Wish' : 'Note'}
                                 </Button>
                             </Grid>
                         </Grid>
