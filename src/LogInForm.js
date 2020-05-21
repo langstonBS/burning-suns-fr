@@ -7,7 +7,7 @@ import Container from '@material-ui/core/Container';
 import request from 'superagent';
 import { useHistory } from 'react-router-dom';
 import './App.css';
-
+import './Header.css';
 
 
 export default function LogIn(props) {

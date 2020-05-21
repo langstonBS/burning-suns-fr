@@ -5,6 +5,7 @@ import {
   Route,
   Redirect,
 } from "react-router-dom"
+
 import SignInPage from './signInPage';
 import SignUpPage from './signUpPage';
 import DetailPage from './DetailPage';
@@ -16,9 +17,11 @@ import AboutUs from './aboutUs';
 import Notes from './Notes'
 import Footer from './Footer'
 import Calendar from './Calendar';
-
+import { createMuiTheme } from "@material-ui/core";
+import Theam from './theme';
 // import { render } from "@testing-library/react";
 
+const theam = createMuiTheme(Theam)
 export default class App extends Component{
   state = {
     token: localStorage.getItem('TOKEN'),
@@ -29,7 +32,9 @@ export default class App extends Component{
     localStorage.setItem('TOKEN', newToken)
   }
   
+  
   render() {
+    console.log(theam)
     return (
       <Router>
         <Header token={this.state.token} handleUserChange={this.handleUserChange}/>

@@ -1,0 +1,14 @@
+
+
+
+body{
+    display: flex;
+
+
+}
+iframe{
+    float: left;
+    border:none;
+}
+
+
