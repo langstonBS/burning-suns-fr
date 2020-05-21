@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Redirect,
 } from "react-router-dom"
 import SignInPage from './signInPage';
 import SignUpPage from './signUpPage';
@@ -15,18 +15,18 @@ import Header from "./Header";
 import AboutUs from './aboutUs';
 import Notes from './Notes'
 import Footer from './Footer'
+import Calendar from './Calendar';
 
 // import { render } from "@testing-library/react";
 
 export default class App extends Component{
   state = {
-    token: ''
+    token: localStorage.getItem('TOKEN'),
   }
 
   handleUserChange = (newToken) => {
     this.setState({ token: newToken })
     localStorage.setItem('TOKEN', newToken)
-    
   }
   
   render() {
@@ -34,7 +34,9 @@ export default class App extends Component{
       <Router>
         <Header token={this.state.token} handleUserChange={this.handleUserChange}/>
         <Switch>
-
+        <Route exact path="/" render={(routerProps) => 
+          < Redirect to="/SearchPage" />}
+          />
           <Route path="/SignInPage" render={(routerProps) => 
           <SignInPage handleUserChange={this.handleUserChange} {...routerProps} />}
           />
@@ -42,6 +44,9 @@ export default class App extends Component{
           <Route path="/SignUpPage" render={(routerProps) =>
             <SignUpPage handleUserChange={this.handleUserChange} {...routerProps} />}
           /> 
+      <Route path="/Calendar" render={(routerProps) => 
+          <Calendar {...routerProps} />} 
+          />
 
           <PrivateRoute path="/SearchPage" token = {this.state.token} render={(routerProps) => 
           <SearchPage {...routerProps} />} 
