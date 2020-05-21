@@ -13,7 +13,8 @@ import StarredListPage from './StarredListPage';
 import PrivateRoute from './PrivateRoute.js';
 import Header from "./Header";
 import AboutUs from './aboutUs';
-
+import Notes from './Notes'
+import Footer from './Footer'
 
 // import { render } from "@testing-library/react";
 
@@ -53,12 +54,16 @@ export default class App extends Component{
           <PrivateRoute path="/StarredListPage" token = {this.state.token} render={(routerProps) => 
           <StarredListPage {...routerProps} />} 
           />
-          <Route path="/abutUs" render={(routerProps) => 
+          <PrivateRoute path="/Notes" token = {this.state.token} render={(routerProps) => 
+            <Notes {...routerProps} />} 
+          />
+          <Route path="/aboutUs" render={(routerProps) => 
           <AboutUs {...routerProps} />} 
           />
 
 
          </Switch>
+         <Footer/>
     </Router>
   );
 }
