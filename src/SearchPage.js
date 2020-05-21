@@ -53,7 +53,7 @@ export default function SearchPage(props) {
     // test the submitted query with an API call, to make sure it's able to find a location in the dataset
     const fetch = await request.get(`https://stark-mesa-84010.herokuapp.com/api/location/${query}`).set("Authorization", props.token);
 
-    // console.log(fetch);
+    console.log(fetch);
     
     // if the fetch returns no body, show "bad search" text; otherwise, setFetch for redirect
     if (!fetch.body) {

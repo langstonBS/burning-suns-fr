@@ -80,7 +80,7 @@ export default function DetailPage(props) {
 
     const newSaveObject = {
       city: locFetch.body.name,
-      state: locFetch.body.region,
+      state: locFetch.body.region === '' ? locFetch.body.country : locFetch.body.region,
       lat: locFetch.body.lat,
       lon: locFetch.body.lon
     }
@@ -136,7 +136,7 @@ export default function DetailPage(props) {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Details for {locData.name}, {locData.region}
+            Details for {locData.name}, {locData.region === '' ? locData.country : locData.region}
           </Typography>
           {
               currentData
