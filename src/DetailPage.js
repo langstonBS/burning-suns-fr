@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import request from 'superagent';
+import { Button } from "@material-ui/core";
 
 function Copyright() {
   return (
@@ -73,35 +74,74 @@ export default function DetailPage(props) {
     return `${year}-${month}-${date}`
   }
 
+  // initialize states for data objects
   const [currentData, setCurrentData] = useState({});
   const [forecastData, setForecastData] = useState({});
   const [astroData, setAstroData] = useState({});
   const [locData, setLocData] = useState({});
+  
+  // initialize saveObject -- this is what we post to the favorites endpoint, and compare against user's existing saves
+  const [saveObject, setSaveObject] = useState({})
+
+  const [isSaved, setIsSaved] = useState(false)
+
+  // declare function to get data objects from APIs
+  async function renderDetails() {
+    const locFetch = await request.get(`https://stark-mesa-84010.herokuapp.com/api/location/${cityName}`).set("Authorization", token);
+
+    setLocData(locFetch.body)
+
+    const newSaveObject = {
+      city: locFetch.body.name,
+      state: locFetch.body.region,
+      lat: locFetch.body.lat,
+      lon: locFetch.body.lon
+    }
+
+    setSaveObject(newSaveObject)
+
+    const currentSaves = await request.get('https://stark-mesa-84010.herokuapp.com/api/saved-locations').set("Authorization", token)
+
+    const checkedSave = currentSaves.body.filter(savedLocation => {
+      return savedLocation.city === newSaveObject.city && savedLocation.state === newSaveObject.state
+    })
+
+    if (checkedSave[0]) { setIsSaved(true) }
+
+    const fetch = await request.get(`https://stark-mesa-84010.herokuapp.com/api/weather/${cityName}`).set("Authorization", token);
+
+    // console.log(fetch)
+
+    setCurrentData(fetch.body.current)
+    // setForecastData(fetch.body.forecast[todaysDate()])
+    // setAstroData(fetch.body.forecast[todaysDate()].astro)
+  }
 
   useEffect(() => {
-        console.log('Rendered!')
+    // call function to get data objects and set data states
+    renderDetails()
 
-        async function renderDetails() {
-            const locFetch = await request.get(`https://stark-mesa-84010.herokuapp.com/api/location/${cityName}`).set("Authorization", token);
+  }, [])
 
-            setLocData(locFetch.body)
-
-            const fetch = await request.get(`https://stark-mesa-84010.herokuapp.com/api/weather/${cityName}`).set("Authorization", token);
-
-            setCurrentData(fetch.body.current)
-            setForecastData(fetch.body.forecast[todaysDate()])
-            setAstroData(fetch.body.forecast[todaysDate()].astro)
-            // console.log('FETCH:', fetch.body);
-        }
-        
-        renderDetails()
-    }, [])
-    
-    // console.log('CURRENT DATA STATE:', currentData)
-    // console.log('FORECAST DATA STATE:', forecastData)
-    // console.log('ASTRO DATA STATE:', astroData)
-    // console.log('LOCATION DATA STATE:', locData)
+  // console.log('Current save object:', saveObject)
+  // console.log('Current saved state:', isSaved)
+  // console.log('Matching save object', checkedSave)
+  // console.log('CURRENT DATA STATE:', currentData)
+  // console.log('FORECAST DATA STATE:', forecastData)
+  // console.log('ASTRO DATA STATE:', astroData)
+  // console.log('LOCATION DATA STATE:', locData)
   
+  const handleSave = async () => {
+    await request.post('https://stark-mesa-84010.herokuapp.com/api/saved-locations', saveObject).set("Authorization", token)
+    setIsSaved(true)
+  }
+
+  const handleDelete = async () => {
+    // console.log('this would be a delete')
+    await request.delete('https://stark-mesa-84010.herokuapp.com/api/saved-locations', saveObject).set("Authorization", token)
+    setIsSaved(false)
+  }
+
   return (
     <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -137,18 +177,24 @@ export default function DetailPage(props) {
                           Stargazing conditions
                       </Typography>
 
-                      <Typography component="p">
+                      {/* <Typography component="p">
                           Average temperature: {forecastData.avgtemp} Celsius
-                      </Typography>
+                      </Typography> */}
                       <Typography component="p">
                           Cloud cover: {currentData.cloudcover}%
                       </Typography>
-                      <Typography component="p">
+                      {/* <Typography component="p">
                           Sunset will be around {astroData.sunrise}.
                       </Typography>
                       <Typography component="p">
                           Moonrise will be around {astroData.moonrise}.
-                      </Typography>
+                      </Typography> */}
+
+                      {
+                        !isSaved
+                        ? <Button onClick={handleSave}>Save to favorites</Button>
+                        : <Button onClick={handleDelete}>Remove from favorites</Button>
+                      }
                       
                   </Container>
 
