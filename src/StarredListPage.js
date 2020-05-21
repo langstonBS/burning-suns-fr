@@ -20,6 +20,9 @@ function Copyright() {
 }
 
 export default function StarredListPage(props) {
+  // retrieve token for API call -- first try from props, then from localStorage if prop unset (ex. page refresh)
+  const token = props.token || localStorage.getItem('TOKEN')
+
   const exampleSaves = [
     {
       city: 'Portland',
@@ -37,8 +40,16 @@ export default function StarredListPage(props) {
 
   const [savedLocations, setSavedLocations] = useState([])
 
+  async function getUserSaves() {
+    const response = await request.get('https://stark-mesa-84010.herokuapp.com/api/saved-locations').set("Authorization", token)
+    console.log(response.body)
+
+    setSavedLocations(response.body)
+  }
+
   useEffect(() => {
-    setSavedLocations(exampleSaves)
+    getUserSaves()
+    // setSavedLocations(exampleSaves)
   },[])
 
   const handleDelete = (saveObject) => {
