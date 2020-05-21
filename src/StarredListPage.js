@@ -52,9 +52,13 @@ export default function StarredListPage(props) {
     // setSavedLocations(exampleSaves)
   },[])
 
-  const handleDelete = (saveObject) => {
-    // const newList = savedLocations.slice()
-    console.log(`we'll post this object to the server for deletion:`, saveObject)
+  const handleDelete = async (saveObject) => {
+    // send object for deletion
+    await request.delete('https://stark-mesa-84010.herokuapp.com/api/saved-locations', saveObject).set("Authorization", token)
+
+    // re-render page with updated save data
+    const response = await request.get('https://stark-mesa-84010.herokuapp.com/api/saved-locations').set("Authorization", token)
+    setSavedLocations(response.body)
   }
 
   return (

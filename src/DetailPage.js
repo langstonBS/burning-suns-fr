@@ -137,8 +137,9 @@ export default function DetailPage(props) {
   }
 
   const handleDelete = async () => {
-    console.log('this would be a delete')
-    // await request.delete('https://stark-mesa-84010.herokuapp.com/api/saved-locations', saveObject).set("Authorization", token)
+    // console.log('this would be a delete')
+    await request.delete('https://stark-mesa-84010.herokuapp.com/api/saved-locations', saveObject).set("Authorization", token)
+    setIsSaved(false)
   }
 
   return (
