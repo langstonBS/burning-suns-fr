@@ -114,57 +114,75 @@ export default function DetailPage(props) {
     <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h3">
             Details for {locData.name}, {locData.country !== 'United States of America' ? locData.country : locData.region}
           </Typography>
-          {
-              !currentData || !locData || !astroData
-              ? <Typography component="p">
-                  Loading...
+
+          <Container component="section" maxWidth="xs">
+
+            <Container component="article">
+
+              <Typography component="h1" variant="h5">
+                Constellations over {locData.name} on {astroData.date}
               </Typography>
-              : <Container component="section" maxWidth="xs">
 
-                  <Container component="article">
-                    <iframe 
-                        title={`Star Map for ${locData.name}`}
-                        width="300" 
-                        height="350" 
-                        frameborder="0" 
-                        scrolling="no" 
-                        marginheight="0" 
-                        marginwidth="0" 
-                        src={`https://virtualsky.lco.global/embed/index.html?longitude=${locData.lon}&latitude=${locData.lat}&projection=stereo&constellations=true&constellationlabels=true&meteorshowers=true&live=true`} 
-                        allowTransparency="true" />
-                    <Typography component="p">
-                        Star Map created with <Link to="https://slowe.github.io/VirtualSky/">VirtualSky</Link>
-                    </Typography>
-                  </Container>
+              <iframe 
+                  title={`Star Map for ${locData.name}`}
+                  width="300" 
+                  height="350" 
+                  frameborder="0" 
+                  scrolling="no" 
+                  marginheight="0" 
+                  marginwidth="0" 
+                  src={`https://virtualsky.lco.global/embed/index.html?longitude=${locData.lon}&latitude=${locData.lat}&projection=stereo&constellations=true&constellationlabels=true&meteorshowers=true&live=true`} 
+                  allowTransparency="true" />
 
-                  <Container component="article" maxWidth="xs">
-                      <Typography component="h1" variant="h6">
-                          Stargazing conditions
-                      </Typography>
+              <Typography component="p">
+                  Star Map created with <Link to="https://slowe.github.io/VirtualSky/">VirtualSky</Link>
+              </Typography>
 
-                      <Typography component="p">
-                          Cloud cover: {currentData.cloudcover}%
-                      </Typography>
-                      <Typography component="p">
-                          Sunset will be around {astroData.sunrise}.
-                      </Typography>
-                      <Typography component="p">
-                          Moonrise will be around {astroData.moonrise}.
-                      </Typography>
+            </Container>
 
-                      {
-                        !isSaved
-                        ? <Button onClick={handleSave}>Save to favorites</Button>
-                        : <Button onClick={handleDelete}>Remove from favorites</Button>
-                      }
-                      
-                  </Container>
+            <Container component="article" maxWidth="xs">
 
-              </Container>
-          }
+                <Typography component="h1" variant="h5">
+                    Stargazing conditions
+                </Typography>
+
+                <Typography component="h1" variant="h6">
+                    Weather
+                </Typography>
+
+                <Typography component="p">
+                    Cloud cover: {currentData.cloudcover}%
+                </Typography>
+                <Typography component="p">
+                    Visibility: {currentData.visibility} km
+                </Typography>
+                <Typography component="p">
+                    Precipitation: {currentData.precip}%
+                </Typography>
+
+                <Typography component="h1" variant="h6">
+                    Astronomic Events
+                </Typography>
+
+                <Typography component="p">
+                    Sunset will be around {astroData.sunrise}.
+                </Typography>
+                <Typography component="p">
+                    Moonrise will be around {astroData.moonrise}.
+                </Typography>
+
+                {
+                  !isSaved
+                  ? <Button onClick={handleSave}>Save to favorites</Button>
+                  : <Button onClick={handleDelete}>Remove from favorites</Button>
+                }
+                
+            </Container>
+
+          </Container>
         </div>
       </Container>
   );
