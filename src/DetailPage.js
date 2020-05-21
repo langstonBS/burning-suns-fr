@@ -10,19 +10,6 @@ import Container from '@material-ui/core/Container';
 import request from 'superagent';
 import { Button } from "@material-ui/core";
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Burning Suns
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
 const useStyles = makeStyles((theme) => ({
     paper: {
         marginTop: theme.spacing(8),
@@ -137,7 +124,6 @@ export default function DetailPage(props) {
   }
 
   const handleDelete = async () => {
-    // console.log('this would be a delete')
     await request.delete('https://stark-mesa-84010.herokuapp.com/api/saved-locations', saveObject).set("Authorization", token)
     setIsSaved(false)
   }
@@ -204,9 +190,6 @@ export default function DetailPage(props) {
             </Typography>
           }
         </div>
-        <Box mt={8}>
-          <Copyright />
-        </Box>
       </Container>
   );
 }
