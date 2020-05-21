@@ -53,6 +53,7 @@ export default function LogIn(props) {
                       name="email"
                       value={email}
                       onChange={e => setEmail(e.target.value)}
+                      helperText={error}
                     autoComplete="email"
                         autoFocus
                       
@@ -65,6 +66,7 @@ export default function LogIn(props) {
             name="password"
             value={password}
             onChange={e => setPassword(e.target.value)}
+            helperText={error}
             label="Password"
             type="password"
             id="password"
@@ -83,7 +85,6 @@ export default function LogIn(props) {
               {props.link}
             </Grid>
           </Grid>
-          <p>{error}</p>
         </form>     
       </div>
     </Container>
