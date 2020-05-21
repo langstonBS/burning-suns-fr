@@ -73,34 +73,98 @@ export default function DetailPage(props) {
     return `${year}-${month}-${date}`
   }
 
+  // initialize states for data objects
   const [currentData, setCurrentData] = useState({});
   const [forecastData, setForecastData] = useState({});
   const [astroData, setAstroData] = useState({});
   const [locData, setLocData] = useState({});
+  
+  // initialize saveObject -- this is what we post to the favorites endpoint, or compare against user's existing saves
+  const [saveObject, setSaveObject] = useState({})
+
+  // declare function to get data objects from APIs
+  async function renderDetails() {
+    const locFetch = await request.get(`https://stark-mesa-84010.herokuapp.com/api/location/${cityName}`).set("Authorization", token);
+
+    setLocData(locFetch.body)
+
+    const newSaveObject = {
+      city: locFetch.body.name,
+      state: locFetch.body.region,
+      lat: locFetch.body.lat,
+      lon: locFetch.body.lon
+    }
+
+    const checkedSave = exampleSaves.filter(savedLocation => {
+      return savedLocation.city === newSaveObject.city && savedLocation.state === newSaveObject.state
+    })
+
+    if (checkedSave[0]) { setIsSaved(true) }
+
+    setSaveObject(newSaveObject)
+
+    const fetch = await request.get(`https://stark-mesa-84010.herokuapp.com/api/weather/${cityName}`).set("Authorization", token);
+
+    setCurrentData(fetch.body.current)
+    setForecastData(fetch.body.forecast[todaysDate()])
+    setAstroData(fetch.body.forecast[todaysDate()].astro)
+    // console.log('FETCH:', fetch.body);
+  }
+
+  ////// save-handling
+
+  // example saved data
+  const exampleSaves = [
+    {
+      city: 'Portland',
+      state: 'Oregon',
+      lat: '45.524',
+      lon: '-122.675'
+    },
+    {
+      city: 'Sacramento',
+      state: 'California',
+      lat: '38.5816',
+      lon: '-121.4944'
+    }
+  ]
+
+  const [isSaved, setIsSaved] = useState(false)
 
   useEffect(() => {
-        console.log('Rendered!')
+    console.log('Rendered!')
 
-        async function renderDetails() {
-            const locFetch = await request.get(`https://stark-mesa-84010.herokuapp.com/api/location/${cityName}`).set("Authorization", token);
-
-            setLocData(locFetch.body)
-
-            const fetch = await request.get(`https://stark-mesa-84010.herokuapp.com/api/weather/${cityName}`).set("Authorization", token);
-
-            setCurrentData(fetch.body.current)
-            setForecastData(fetch.body.forecast[todaysDate()])
-            setAstroData(fetch.body.forecast[todaysDate()].astro)
-            // console.log('FETCH:', fetch.body);
-        }
-        
-        renderDetails()
-    }, [])
+    // call function to get data objects and set data states
+    renderDetails()
+      // .then(() => {
+      //   const checkedSave = exampleSaves.filter(savedLocation => {
+      //     return savedLocation.city === saveObject.city && savedLocation.state === saveObject.state
+      //   })
     
-    // console.log('CURRENT DATA STATE:', currentData)
-    // console.log('FORECAST DATA STATE:', forecastData)
-    // console.log('ASTRO DATA STATE:', astroData)
-    // console.log('LOCATION DATA STATE:', locData)
+      //   if (checkedSave[0]) { setIsSaved(true) }
+      // })
+
+  }, [])
+
+  // compare saveObject against current array of save objects, set isSaved to true if found
+  // if (saveObject.city) {
+  //   const checkedSave = exampleSaves.filter(savedLocation => {
+  //     return savedLocation.city === saveObject.city && savedLocation.state === saveObject.state
+  //   }
+  
+  //   if (checkedSave[0]) { setIsSaved(true) }
+  // }
+
+  // if (exampleSaves.includes(saveObject)) {console.log('saved!')}
+  // else {console.log('not saved!')}
+
+  console.log('Current save object:', saveObject)
+  console.log('Current saved state:', isSaved)
+  // console.log('Matching save object', checkedSave)
+  // console.log('CURRENT DATA STATE:', currentData)
+  // console.log('FORECAST DATA STATE:', forecastData)
+  // console.log('ASTRO DATA STATE:', astroData)
+  // console.log('LOCATION DATA STATE:', locData)
   
   return (
     <Container component="main" maxWidth="xs">
