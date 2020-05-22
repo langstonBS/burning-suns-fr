@@ -1,14 +1,8 @@
 
 
 
-body{
-    display: flex;
 
 
+.favorits-button {
+    background-color: peru;
 }
-iframe{
-    float: left;
-    border:none;
-}
-
-

@@ -1,48 +1,26 @@
 import React, { useState, useEffect } from "react";
-import CssBaseline from '@material-ui/core/CssBaseline';
+// import CssBaseline from '@material-ui/core/CssBaseline';
 import Link from '@material-ui/core/Link';
-
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import request from 'superagent';
 import { Button } from "@material-ui/core";
-import './DetailPage'
+import useStyles from './theme'
+
+import './DetailPage.css'
 
 
 
 export default function DetailPage(props) {
-
+  const classes = useStyles();
   // retrieve token for API call -- first try from props, then from localStorage if prop unset (ex. page refresh)
   const token = props.token || localStorage.getItem('TOKEN')
 
   // retrieve city name from url param (/:city) for API call
   const cityName = props.match.params.city
 
-  // generate date string for munging forecast data; the goal is to give the user an idea of what the IRL stargazing conditions would be in the chosen area on that night
-  // NOTE: on free plan, Weatherstack only returns forecast for the previous day, but I figure this is fine for our MVP as a proof of concept.
-  const todaysDate = () => {
-    // to access Weatherstack data object, we need a string in this format: 'YYYY-MM-DD'
-    // first, get the current date
-    const today = new Date(Date.now())
-
-    // then, pull out values for year/month/day
-    const year = today.getFullYear()
-
-    // both getMonth() and getDate() return an integer, but our date string will need a leading zero before any single-digit integer
-    // to achieve that, we convert the integer to a string, then use the String method padStart() to add a leading zero before any single-digit integer
-    const month = (today.getMonth() + 1) // getMonth() works on base-zero (January is 0), which means we need to add 1 to get the human-understandable number
-        .toString()
-        .padStart(2, 0)
-    const date = (today.getDate() - 1) // because we can only access yesterday's data on the free plan, we need to subtract 1 from today's date
-        .toString()
-        .padStart(2, 0)
-
-    return `${year}-${month}-${date}`
-  }
-
   // initialize states for data objects
   const [currentData, setCurrentData] = useState({});
-  const [forecastData, setForecastData] = useState({});
   const [astroData, setAstroData] = useState({});
   const [locData, setLocData] = useState({});
   
@@ -53,34 +31,50 @@ export default function DetailPage(props) {
 
   // declare function to get data objects from APIs
   async function renderDetails() {
-    const locFetch = await request.get(`https://stark-mesa-84010.herokuapp.com/api/location/${cityName}`).set("Authorization", token);
+    // get the target location data
+    const locFetch = await request
+      .get(`https://stark-mesa-84010.herokuapp.com/api/location/${cityName}`)
+      .set("Authorization", token);
 
     setLocData(locFetch.body)
 
+    // get the target location's weather data
+    const weatherFetch = await request
+      .get(`https://stark-mesa-84010.herokuapp.com/api/weather/${cityName}`)
+      .set("Authorization", token);
+
+    // console.log(weatherFetch)
+
+    setCurrentData(weatherFetch.body.current)
+
+    // get the target location's astro data
+    const astroFetch = await request
+      .get(`https://stark-mesa-84010.herokuapp.com/api/astro?lat=${locFetch.body.lat}&long=${locFetch.body.lon}`)
+      .set("Authorization", token);
+
+    console.log(astroFetch.body)
+    setAstroData(astroFetch.body)
+
+    // use the fetched location data to generate save object for larget location
     const newSaveObject = {
       city: locFetch.body.name,
-      state: locFetch.body.region,
+      state: locFetch.body.country !== 'United States of America' ? locFetch.body.country : locFetch.body.region,
       lat: locFetch.body.lat,
       lon: locFetch.body.lon
     }
 
     setSaveObject(newSaveObject)
 
-    const currentSaves = await request.get('https://stark-mesa-84010.herokuapp.com/api/saved-locations').set("Authorization", token)
+    // get the user's current saves
+    const savesFetch = await request.get('https://stark-mesa-84010.herokuapp.com/api/saved-locations').set("Authorization", token)
 
-    const checkedSave = currentSaves.body.filter(savedLocation => {
+    // check whether target location is in saves, based on matching city and "state" (or region) values
+    const checkedSave = savesFetch.body.filter(savedLocation => {
       return savedLocation.city === newSaveObject.city && savedLocation.state === newSaveObject.state
     })
 
     if (checkedSave[0]) { setIsSaved(true) }
 
-    const fetch = await request.get(`https://stark-mesa-84010.herokuapp.com/api/weather/${cityName}`).set("Authorization", token);
-
-    // console.log(fetch)
-
-    setCurrentData(fetch.body.current)
-    // setForecastData(fetch.body.forecast[todaysDate()])
-    // setAstroData(fetch.body.forecast[todaysDate()].astro)
   }
 
   useEffect(() => {
@@ -88,14 +82,6 @@ export default function DetailPage(props) {
     renderDetails()
 
   }, [])
-
-  // console.log('Current save object:', saveObject)
-  // console.log('Current saved state:', isSaved)
-  // console.log('Matching save object', checkedSave)
-  // console.log('CURRENT DATA STATE:', currentData)
-  // console.log('FORECAST DATA STATE:', forecastData)
-  // console.log('ASTRO DATA STATE:', astroData)
-  // console.log('LOCATION DATA STATE:', locData)
   
   const handleSave = async () => {
     await request.post('https://stark-mesa-84010.herokuapp.com/api/saved-locations', saveObject).set("Authorization", token)
@@ -103,69 +89,82 @@ export default function DetailPage(props) {
   }
 
   const handleDelete = async () => {
-    // console.log('this would be a delete')
     await request.delete('https://stark-mesa-84010.herokuapp.com/api/saved-locations', saveObject).set("Authorization", token)
     setIsSaved(false)
   }
 
   return (
-    <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <div>
-          <Typography component="h1" variant="h5">
-            Details for {locData.name}, {locData.region}
+    <Container component="main">
+        <div >
+          <Typography  variant="h1">
+            Details for {locData.name}, {locData.country !== 'United States of America' ? locData.country : locData.region}
           </Typography>
-          {
-              currentData
-              ? <Container component="section" maxWidth="xs">
 
-                  <Container component="article">
-                    <iframe 
-                        title={`Star Map for ${locData.name}`}
-                        width="500" 
-                        height="500" 
-                        frameborder="0" 
-                        scrolling="no" 
-                        marginheight="0" 
-                        marginwidth="0" 
-                        src={`https://virtualsky.lco.global/embed/index.html?longitude=${locData.lon}&latitude=${locData.lat}&projection=stereo&constellations=true&constellationlabels=true&meteorshowers=true&live=true`} 
-                        allowTransparency="true" />
-                    <Typography component="p">
-                        Star Map created with <Link to="https://slowe.github.io/VirtualSky/">VirtualSky</Link>
-                    </Typography>
-                  </Container>
+          <Container component="section">
 
-                  <Container component="article" maxWidth="xs">
-                      <Typography component="h1" variant="h6">
-                          Stargazing conditions
-                      </Typography>
+            <Container component="article">
 
-                      {/* <Typography component="p">
-                          Average temperature: {forecastData.avgtemp} Celsius
-                      </Typography> */}
-                      <Typography component="p">
-                          Cloud cover: {currentData.cloudcover}%
-                      </Typography>
-                      {/* <Typography component="p">
-                          Sunset will be around {astroData.sunrise}.
-                      </Typography>
-                      <Typography component="p">
-                          Moonrise will be around {astroData.moonrise}.
-                      </Typography> */}
+              <Typography component="h1" variant="h5">
+                Constellations over {locData.name} on {astroData.date}
+              </Typography>
 
-                      {
-                        !isSaved
-                        ? <Button onClick={handleSave}>Save to favorites</Button>
-                        : <Button onClick={handleDelete}>Remove from favorites</Button>
-                      }
-                      
-                  </Container>
+              <iframe 
+                  title={`Star Map for ${locData.name}`}
+                  width="1000" 
+                  height="1000" 
+                  frameborder="0" 
+                  scrolling="no" 
+                  marginheight="0" 
+                  marginwidth="0" 
+                  src={`https://virtualsky.lco.global/embed/index.html?longitude=${locData.lon}&latitude=${locData.lat}&projection=stereo&constellations=true&constellationlabels=true&meteorshowers=true&live=true`} 
+                  allowTransparency="true" />
 
-              </Container>
-            : <Typography component="p">
-                Loading...
-            </Typography>
-          }
+              <Typography component="p">
+                  Star Map created with <Link to="https://slowe.github.io/VirtualSky/">VirtualSky</Link>
+              </Typography>
+
+            </Container>
+
+            <Container component="article">
+
+                <Typography component="h1" variant="h5">
+                    Stargazing conditions
+                </Typography>
+
+                <Typography component="h1" variant="h6">
+                    Weather
+                </Typography>
+
+                <Typography component="p">
+                    Cloud cover: {currentData.cloudcover}%
+                </Typography>
+                <Typography component="p">
+                    Visibility: {currentData.visibility} km
+                </Typography>
+                <Typography component="p">
+                    Precipitation: {currentData.precip}%
+                </Typography>
+
+                <Typography component="h1" variant="h6">
+                    Astronomic Events
+                </Typography>
+
+                <Typography component="p">
+                    Sunset will be around {astroData.sunrise}.
+                </Typography>
+                <Typography component="p">
+                    Moonrise will be around {astroData.moonrise}.
+                </Typography>
+
+                {
+                  !isSaved
+                  ? <Button className={classes.submit} onClick={handleSave}>Save to favorites</Button>
+                  : <Button className={classes.submit} onClick={handleDelete}>Remove from favorites</Button>
+                }
+                
+            </Container>
+
+          </Container>
         </div>
       </Container>
   );

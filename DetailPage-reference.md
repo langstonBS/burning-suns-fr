@@ -49,12 +49,21 @@ astroData
 
 ```json
 {
-    sunrise: "05:35 AM"
-    sunset: "08:40 PM"
-    moonrise: "04:34 AM"
-    moonset: "05:42 PM"
-    moon_phase: "Waning Crescent"
-    moon_illumination: 11
+    location: {latitude: 35.69, longitude: 139.692}
+    date: "2020-05-22"
+    sunrise: "04:31"
+    sunset: "18:45"
+    solar_noon: "11:38"
+    day_length: "14:14"
+    sun_altitude: 23.920933645061766
+    sun_distance: 151397480.19797817
+    sun_azimuth: 81.30170918585384
+    moonrise: "04:49"
+    moonset: "18:14"
+    moon_altitude: 28.364507253385916
+    moon_distance: 400497.4047371233
+    moon_azimuth: 91.22365079853114
+    moon_parallactic_angle: -58.90762546964588
 }
 ```
 
