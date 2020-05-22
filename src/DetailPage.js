@@ -5,7 +5,6 @@ import Container from '@material-ui/core/Container';
 import request from 'superagent';
 import { Button } from "@material-ui/core";
 import useStyles from './theme';
-import { Box } from '@material-ui/core';
 import './DetailPage.css';
 
 export default function DetailPage(props) {

@@ -1,9 +1,8 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { responsiveFontSizes } from '@material-ui/core/styles';
-import deepPurple from '@material-ui/core/colors/purple';
-import amber from '@material-ui/core/colors/purple';
 import './theme.css';
+import { Container } from '@material-ui/core';
 
 const sam = createMuiTheme({
     palette: {
@@ -25,9 +24,22 @@ const sam = createMuiTheme({
         fontFamily: 'Times New Roman',
 
         h1: {
-            // fontFamily: 'Helvetica Neue',
+            fontFamily: 'Helvetica Neue',
             fontSize: '3.5em',
+        },
+        h2: {
+            fontFamily: 'Helvetica Neue',
+            fontSize: '2em',
+        },
+        p: {
+            fontFamily: 'Helvetica Neue',
+            fontSize: '1em',
+        },
+        Container:
+        {
+
         }
+
     }
 });
 responsiveFontSizes(sam)
@@ -58,6 +70,10 @@ const useStyles = makeStyles(() => ({
     },
     title: {
         fontSize: sam.typography.h1.fontSize
+    },
+    cardItem: {
+        backgroundColor: sam.palette.primary.ligh
+
     }
 }));
 
