@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react"
 import request from "superagent"
-import Icon from '@material-ui/core/Icon';
-import classNames from 'classnames';
 import Brightness3Icon from '@material-ui/icons/Brightness3';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import StarIcon from '@material-ui/icons/Star';
