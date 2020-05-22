@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`First React component test with Enzyme renders without crashing 1`] = `
+<WithStyles(ForwardRef(Typography))
+  align="center"
+  color="textSecondary"
+  variant="body2"
+>
+  Copyright © 
+  <WithStyles(ForwardRef(Link))
+    color="inherit"
+    href="/aboutUs"
+  >
+    Burning Suns
+  </WithStyles(ForwardRef(Link))>
+   
+  2020
+  .
+</WithStyles(ForwardRef(Typography))>
+`;
