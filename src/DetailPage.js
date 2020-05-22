@@ -56,7 +56,7 @@ export default function DetailPage(props) {
 
   return (
       
-    <Container component="main" className={classes.form}>
+    <Container component="main" className={classes.paper}>
         <div >
           <Typography  variant="h1" className={classes.title}>
             Details for {locData.name}, {locData.country !== 'United States of America' ? locData.country : locData.region}
@@ -97,13 +97,13 @@ export default function DetailPage(props) {
                     Weather
                 </Typography>
 
-                <Typography component="p">
+                <Typography component="p" variant="h6">
                     Cloud cover: {currentData.cloudcover}%
                 </Typography>
-                <Typography component="p">
+                <Typography component="p" variant="h6">
                     Visibility: {currentData.visibility} km
                 </Typography>
-                <Typography component="p">
+                <Typography component="p" variant="h6">
                     Precipitation: {currentData.precip}%
                 </Typography>
 
@@ -111,10 +111,10 @@ export default function DetailPage(props) {
                     Astronomic Events
                 </Typography>
 
-                <Typography component="p">
+                <Typography component="p" variant="h6">
                     Sunset will be around {astroData.sunrise}.
                 </Typography>
-                <Typography component="p">
+                <Typography component="p" variant="h6">
                     Moonrise will be around {astroData.moonrise}.
                 </Typography>
 

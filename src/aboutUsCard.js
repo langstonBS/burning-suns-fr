@@ -1,23 +1,24 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Typography from '@material-ui/core/Typography';
 import './aboutUsCard.css';
+import useStyles from './theme';
 
 
-export default class aboutUsCard extends Component {
-    render() {
-        return (
-            <div>
-            <li className="AboutUsStyle">
+export default function AboutUsCard(props) {
+const classes = useStyles();
+    return (
+            <div  >
+                <li className="AboutUsStyle">
                     <div className="immageContainer">
-                    <h2>{this.props.name}</h2>
+                    <h2>{props.name}</h2>
                     <div className="immageContatin">
-                        <img alt={this.props.alt}
-                        src={this.props.photo}></img>
+                    <img alt={props.alt}
+                        src={props.photo}></img>
                     </div> 
-                        <Typography>{this.props.detail}</Typography>
+                        <Typography>{props.detail}</Typography>
                     </div>
             </li>
             </div>
         )
-    }
+    
 }
