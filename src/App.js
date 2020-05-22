@@ -19,12 +19,25 @@ import Footer from './Footer'
 import Calendar from './Calendar';
 import { createMuiTheme } from "@material-ui/core";
 import Theam from './theme';
+import request from "superagent";
 // import { render } from "@testing-library/react";
+
+function setBg(imageUrl) {
+  document.body.style.backgroundImage = `url('${imageUrl}')`
+  document.body.style.backgroundSize = 'cover'
+}
+
 
 const theam = createMuiTheme(Theam)
 export default class App extends Component{
   state = {
     token: localStorage.getItem('TOKEN'),
+  }
+
+  componentDidMount = async () => {
+    const response = await request.get('https://stark-mesa-84010.herokuapp.com/nasa')
+    // console.log(response)
+    setBg(response.body.url)
   }
 
   handleUserChange = (newToken) => {

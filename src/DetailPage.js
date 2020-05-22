@@ -5,7 +5,6 @@ import Container from '@material-ui/core/Container';
 import request from 'superagent';
 import { Button } from "@material-ui/core";
 import useStyles from './theme';
-import { Box } from '@material-ui/core';
 import './DetailPage.css';
 
 export default function DetailPage(props) {
@@ -23,61 +22,26 @@ export default function DetailPage(props) {
   
   // initialize saveObject -- this is what we post to the favorites endpoint, and compare against user's existing saves
   const [saveObject, setSaveObject] = useState({})
-
   const [isSaved, setIsSaved] = useState(false)
 
-  // declare function to get data objects from APIs
-  async function renderDetails() {
-    // get the target location data
-    const locFetch = await request
-      .get(`https://stark-mesa-84010.herokuapp.com/api/location/${cityName}`)
-      .set("Authorization", token);
-
-    setLocData(locFetch.body)
-
-    // get the target location's weather data
-    const weatherFetch = await request
-      .get(`https://stark-mesa-84010.herokuapp.com/api/weather/${cityName}`)
-      .set("Authorization", token);
-
-    // console.log(weatherFetch)
-
-    setCurrentData(weatherFetch.body.current)
-
-    // get the target location's astro data
-    const astroFetch = await request
-      .get(`https://stark-mesa-84010.herokuapp.com/api/astro?lat=${locFetch.body.lat}&long=${locFetch.body.lon}`)
-      .set("Authorization", token);
-
-    console.log(astroFetch.body)
-    setAstroData(astroFetch.body)
-
-    // use the fetched location data to generate save object for larget location
-    const newSaveObject = {
-      city: locFetch.body.name,
-      state: locFetch.body.country !== 'United States of America' ? locFetch.body.country : locFetch.body.region,
-      lat: locFetch.body.lat,
-      lon: locFetch.body.lon
-    }
-
-    setSaveObject(newSaveObject)
-
-    // get the user's current saves
-    const savesFetch = await request.get('https://stark-mesa-84010.herokuapp.com/api/saved-locations').set("Authorization", token)
-
-    // check whether target location is in saves, based on matching city and "state" (or region) values
-    const checkedSave = savesFetch.body.filter(savedLocation => {
-      return savedLocation.city === newSaveObject.city && savedLocation.state === newSaveObject.state
-    })
-
-    if (checkedSave[0]) { setIsSaved(true) }
-
-  }
+  // initialize states for window dimensions -- this will be used to resize the star map
+  const [chartWidth, setchartWidth] = useState(window.innerWidth * .7)
+  const [chartHeight, setchartHeight] = useState(window.innerHeight * .7)
 
   useEffect(() => {
-    // call function to get data objects and set data states
+    // on render, call function to get data objects and set data states
     renderDetails()
 
+    // add event listener to resize star map on window resize
+    window.addEventListener('resize', () => {
+      setchartWidth(window.innerWidth * .7)
+      setchartHeight(window.innerHeight * .7)
+    })
+    // cleanup function
+    return window.removeEventListener('resize', () => {
+      setchartWidth(window.innerWidth * .7)
+      setchartHeight(window.innerHeight * .7)
+    })
   }, [])
   
   const handleSave = async () => {
@@ -108,8 +72,8 @@ export default function DetailPage(props) {
 
               <iframe 
                   title={`Star Map for ${locData.name}`}
-                  width="1000" 
-                  height="1000" 
+                  width={chartWidth} 
+                  height={chartHeight}
                   frameBorder="0" 
                   scrolling="no" 
                   marginHeight="0" 
@@ -166,4 +130,52 @@ export default function DetailPage(props) {
         </div>
       </Container>
   );
+
+  // function to get data objects from APIs
+  async function renderDetails() {
+    // get the target location data
+    const locFetch = await request
+      .get(`https://stark-mesa-84010.herokuapp.com/api/location/${cityName}`)
+      .set("Authorization", token);
+
+    setLocData(locFetch.body)
+
+    // get the target location's weather data
+    const weatherFetch = await request
+      .get(`https://stark-mesa-84010.herokuapp.com/api/weather/${cityName}`)
+      .set("Authorization", token);
+
+    // console.log(weatherFetch)
+
+    setCurrentData(weatherFetch.body.current)
+
+    // get the target location's astro data
+    const astroFetch = await request
+      .get(`https://stark-mesa-84010.herokuapp.com/api/astro?lat=${locFetch.body.lat}&long=${locFetch.body.lon}`)
+      .set("Authorization", token);
+
+    console.log(astroFetch.body)
+    setAstroData(astroFetch.body)
+
+    // use the fetched location data to generate save object for larget location
+    const newSaveObject = {
+      city: locFetch.body.name,
+      state: locFetch.body.country !== 'United States of America' ? locFetch.body.country : locFetch.body.region,
+      lat: locFetch.body.lat,
+      lon: locFetch.body.lon
+    }
+
+    setSaveObject(newSaveObject)
+
+    // get the user's current saves
+    const savesFetch = await request.get('https://stark-mesa-84010.herokuapp.com/api/saved-locations').set("Authorization", token)
+
+    // check whether target location is in saves, based on matching city and "state" (or region) values
+    const checkedSave = savesFetch.body.filter(savedLocation => {
+      return savedLocation.city === newSaveObject.city && savedLocation.state === newSaveObject.state
+    })
+
+    if (checkedSave[0]) { setIsSaved(true) }
+
+  }
 }

@@ -82,6 +82,15 @@ const useStyles = makeStyles(() => ({
       cardMedia: {
         width: 160,
       },    
+    container: {
+        backgroundColor: 'white',
+        width: '50%',
+        border: sam.palette.primary.dark,
+        borderRadius: '10px',
+        margin: '5em auto',
+        paddingBottom: '1em',
+        boxShadow: 3
+    },
 }));
 
 export default useStyles;

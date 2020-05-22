@@ -1,68 +1,79 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<!-- The name of the project
+Names of the team members
+A description of the project
 
-## Available Scripts
+The overall problem domain and how the project solves those problems
+Semantic versioning, beginning with version 1.0.0 and incremented as changes are made
 
-In the project directory, you can run:
+A list of any libraries, frameworks, or packages that your application requires in order to properly function
 
-### `npm start`
+Instructions that the user may need to follow in order to get your application up and running on their own computer
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Clearly defined API endpoints with sample responses
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Clearly defined database schemas -->
 
-### `npm test`
+# Burning Suns
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Burning Suns is a simple web app for the cosmically curious, designed and built over a five-day sprint as a part of [Alchemy Code Lab](https://www.alchemycodelab.com/)'s curriculum.
 
-### `npm run build`
+This app was built in **Node** and **React**, with heavy dependence on the **Material UI** library for front-end rendering.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+This repository contains the React app only. The deployed Node server is available on [Heroku](https://stark-mesa-84010.herokuapp.com/), and the code can be viewed on its separate [repository](https://github.com/PeepTheMoon/burning-suns-be).
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+The deployed application can be viewed at [https://burningsuns.herokuapp.com/](https://burningsuns.herokuapp.com/).
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Meta (TA Reference)
 
-### `npm run eject`
+- [Miro Board](https://miro.com/app/board/o9J_ksGGC_8=/)
+- Back end test screenshots are available in the back end [repo](https://github.com/PeepTheMoon/burning-suns-be).
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Development Team
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+🌠 Langston Beckwith-Stanley [@langstonBS](https://github.com/langstonBS)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+🌠 Rachel Donahue [@PeepTheMoon](https://github.com/PeepTheMoon)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+🌠 Nikki Kiga [@nikki-kiga](https://github.com/nikki-kiga)
 
-## Learn More
+🌠 Melissa Smoot [@smooto](https://github.com/smooto)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Description
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Burning Suns was designed as a companion app for stargazers. Once registered and logged in, users are able to find up-to-date astronomical and weather data for a given location through a search, and save locations to their profile for ongoing reference. Users can also write notes and shooting-star wishes, save them to their profile, and reference them later by location or date.
 
-### Code Splitting
+This app was built for educational and demonstrative purposes, and isn't intended for serious public use. User profile data, including saved locations and journal entries, will persist between sessions, but aren't guaranteed to persist long-term.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+## Setup
 
-### Analyzing the Bundle Size
+To download the React app and install dependencies:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+```bash
+git clone https://github.com/langstonBS/burning-suns-fr.git
+cd burning-suns-fr
+npm i
+```
 
-### Making a Progressive Web App
+Simple as that. To view the app locally, use `npm run start`. Other scripts can be found in `package.json`.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+Note that the Node server isn't included in this repo -- you can find its code on a [separate repository](https://github.com/PeepTheMoon/burning-suns-be).
 
-### Advanced Configuration
+## Dependencies
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+```json
+"@material-ui/core": "^4.9.14",
+"@material-ui/icons": "^4.9.1",
+"@testing-library/jest-dom": "^4.2.4",
+"@testing-library/react": "^9.5.0",
+"@testing-library/user-event": "^7.2.1",
+"jest-enzyme": "^7.1.2",
+"moment": "^2.25.3",
+"react": "^16.13.1",
+"react-calendar": "^3.1.0",
+"react-date-picker": "^8.0.1",
+"react-datepicker": "^2.16.0",
+"react-dom": "^16.13.1",
+"react-router-dom": "^5.2.0",
+"react-scripts": "3.4.1",
+"superagent": "^5.2.2"
+```
