@@ -30,15 +30,10 @@ const useStyles = makeStyles({
   },
 })
 
-
-
 export default function FeaturedPost(props) {
   const classes = useStyles()
   const { post } = props
   const token = props.token;
-//const moment = require('moment')
-//moment().format()
-//const cleanDate = moment(DATEVAR, 'MM-DD-YYYY').format('ll')
 
 const getNote = async(e, id) => {
   const note = await request.get(`https://stark-mesa-84010.herokuapp.com/api/note/${id}`)
@@ -65,6 +60,9 @@ const deleteNote = async(e, id) => {
         <Card className={classes.card}>
           <div className={classes.cardDetails}>
             <CardContent>
+              <Grid>
+
+              </Grid>
               {post.wish ?
                   <Brightness4Icon/>
                   : <CommentIcon/>
@@ -87,18 +85,6 @@ const deleteNote = async(e, id) => {
                 </Typography>
               </Link>
             </CardContent>
-            <IconButton aria-label="delete" 
-                className={classes.margin}
-                onClick={e => getNote(e, post.id)}
-                >
-              <DeleteSharpIcon className={classes.icon} />
-            </IconButton>
-            <IconButton aria-label="edit" 
-                className={classes.margin}
-                onClick={e => updateNote(e, post.id)}
-                >
-              <EditIcon className={classes.icon} />
-            </IconButton>
           </div>
           <Hidden xsDown>
             <CardMedia className={

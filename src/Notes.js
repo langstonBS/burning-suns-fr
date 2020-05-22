@@ -1,14 +1,39 @@
 import React, { useState, useEffect } from "react"
 import request from "superagent"
-
+import Grid from '@material-ui/core/Grid';
 import Post from "./Post.js"
 import NoteForm from './NoteForm'
+import { makeStyles } from '@material-ui/core/styles';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+      width: '100%',
+    },
+    heading: {
+      fontSize: theme.typography.pxToRem(15),
+      flexBasis: '33.33%',
+      flexShrink: 0,
+    },
+    secondaryHeading: {
+      fontSize: theme.typography.pxToRem(15),
+      color: theme.palette.text.secondary,
+    },
+  }));
 
 export default function NotesPage(props) {
     const token = props.token;
-
+    const classes = useStyles();
     const [notes, setNotes] = useState([]) //How to make this re-render after something is posted?
-    
+    const [expanded, setExpanded] = React.useState(false);
+
+    const handleChange = (panel) => (event, isExpanded) => {
+      setExpanded(isExpanded ? panel : false);
+    };
 
     useEffect(() => {
         try {
@@ -27,23 +52,38 @@ export default function NotesPage(props) {
 
     return (
         <div>
+            <ExpansionPanel expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+                <ExpansionPanelSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1bh-content"
+                    id="panel1bh-header"
+                >
+                    <Typography className={classes.heading}>Add a Note or a Wish</Typography>
+                    <Typography className={classes.secondaryHeading}>Expand to enter details</Typography>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails>
+                <NoteForm token={props.token} updateNotes={setNotes} />
+                </ExpansionPanelDetails>
+            </ExpansionPanel>
+
             
-            <NoteForm token={props.token} updateNotes={setNotes}/>
-            {notes.length === 0 ? 
+            {notes.length === 0 ?
                 <p>Add some notes!</p>
                 : (
                     <div>
                         {/* {console.log(notes[0].title)} */}
-                        {console.log(notes)}
-                        {notes.map((note) => (
-                            
-                            <Post
-                                key={`${note.title}, ${note.body}`}
-                                post={note}
-                                token={token}
-                                updateNotes={setNotes}
-                            />
-                        ))}
+                        <Grid container spacing={4}>
+                            {notes.map((note) => (
+
+                                <Post
+                                    key={`${note.title}, ${note.body}`}
+                                    post={note}
+                                    token={token}
+                                    updateNotes={setNotes}
+                                />
+                            ))}
+                        </Grid>
+
                     </div>
                 )
             }
