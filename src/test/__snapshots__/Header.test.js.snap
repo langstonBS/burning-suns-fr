@@ -1,53 +1,66 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`First React component test with Enzyme renders without crashing 1`] = `
-<div>
-  <ul
-    className="makeStyles-header-5"
-    variant="h6"
+<WithStyles(ForwardRef(AppBar))
+  className="makeStyles-appBar-1"
+  color="default"
+  elevation={0}
+  position="static"
+>
+  <WithStyles(ForwardRef(Toolbar))
+    className="makeStyles-toolbar-2"
   >
-    <li>
-      Welcome!
-    </li>
-    <li>
-      <Link
-        to="/SearchPage"
+    <WithStyles(ForwardRef(Typography))
+      className="makeStyles-toolbarTitle-3"
+      color="inherit"
+      noWrap={true}
+      variant="h6"
+    >
+      Burning Suns
+    </WithStyles(ForwardRef(Typography))>
+    <nav>
+      <WithStyles(ForwardRef(Link))
+        className="makeStyles-link-4"
+        color="textPrimary"
+        href="/SearchPage"
+        variant="button"
       >
         Search Cities
-      </Link>
-    </li>
-    <li>
-      <Link
-        to="/StarredListpage"
+      </WithStyles(ForwardRef(Link))>
+      <WithStyles(ForwardRef(Link))
+        className="makeStyles-link-4"
+        color="textPrimary"
+        href="/StarredListpage"
+        variant="button"
       >
-        Starred List
-      </Link>
-    </li>
-    <li>
-      <Link
-        to="/Notes"
+        Starred Cities
+      </WithStyles(ForwardRef(Link))>
+      <WithStyles(ForwardRef(Link))
+        className="makeStyles-link-4"
+        color="textPrimary"
+        href="/Notes"
+        variant="button"
       >
         Notes
-      </Link>
-    </li>
-    <li>
-      <Link
-        to="/aboutUs"
+      </WithStyles(ForwardRef(Link))>
+      <WithStyles(ForwardRef(Link))
+        className="makeStyles-link-4"
+        color="textPrimary"
+        href="/aboutUs"
+        variant="button"
       >
         About Us
-      </Link>
-       
-    </li>
-    <li>
-      <Link
+      </WithStyles(ForwardRef(Link))>
+      <WithStyles(ForwardRef(Button))
+        className="makeStyles-link-4"
+        color="primary"
+        href="/SignInPage"
         onClick={[Function]}
-        to="/SignInPage"
+        variant="outlined"
       >
-        <div>
-          Logout
-        </div>
-      </Link>
-    </li>
-  </ul>
-</div>
+        Logout
+      </WithStyles(ForwardRef(Button))>
+    </nav>
+  </WithStyles(ForwardRef(Toolbar))>
+</WithStyles(ForwardRef(AppBar))>
 `;

@@ -2,10 +2,41 @@
 
 exports[`First React component test with Enzyme renders without crashing 1`] = `
 <div>
-  <StarIcon />
-  <NoteForm
-    updateNotes={[Function]}
-  />
+  <WithStyles(ForwardRef(ExpansionPanel))
+    expanded={false}
+    onChange={[Function]}
+  >
+    <WithStyles(ForwardRef(ExpansionPanelSummary))
+      aria-controls="panel1bh-content"
+      expandIcon={<UNDEFINED />}
+      id="panel1bh-header"
+    >
+      <WithStyles(ForwardRef(Typography))
+        className="makeStyles-heading-8"
+      >
+        Add a Note or a Wish
+      </WithStyles(ForwardRef(Typography))>
+      <WithStyles(ForwardRef(Typography))
+        className="makeStyles-secondaryHeading-9"
+      >
+        Expand to enter details
+      </WithStyles(ForwardRef(Typography))>
+    </WithStyles(ForwardRef(ExpansionPanelSummary))>
+    <WithStyles(ForwardRef(ExpansionPanelDetails))
+      mx="auto"
+    >
+      <Styled(MuiBox)
+        bgcolor="background.paper"
+        mx="auto"
+        p={1}
+      >
+        <NoteForm
+          updateNotes={[Function]}
+        />
+      </Styled(MuiBox)>
+    </WithStyles(ForwardRef(ExpansionPanelDetails))>
+  </WithStyles(ForwardRef(ExpansionPanel))>
+  <WithStyles(ForwardRef(Divider)) />
   <p>
     Add some notes!
   </p>

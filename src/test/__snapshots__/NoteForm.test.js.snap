@@ -17,7 +17,7 @@ exports[`First React component test with Enzyme renders without crashing 1`] = `
         Note
       </WithStyles(ForwardRef(Typography))>
       <form
-        className="makeStyles-form-2"
+        className="makeStyles-form2-10"
         onSubmit={[Function]}
       >
         <WithStyles(ForwardRef(Grid))
@@ -67,7 +67,9 @@ exports[`First React component test with Enzyme renders without crashing 1`] = `
               control={
                 <ForwardRef(WithStyles)
                   checked={false}
+                  checkedIcon={<UNDEFINED />}
                   color="secondary"
+                  icon={<UNDEFINED />}
                   name="saveCard"
                   onChange={[Function]}
                 />
@@ -139,7 +141,7 @@ exports[`First React component test with Enzyme renders without crashing 1`] = `
               isOpen={null}
               onChange={[Function]}
               returnValue="start"
-              value={2020-05-22T16:24:04.168Z}
+              value={2020-05-22T19:44:54.806Z}
             />
           </WithStyles(ForwardRef(Grid))>
           <WithStyles(ForwardRef(Grid))
@@ -163,6 +165,7 @@ exports[`First React component test with Enzyme renders without crashing 1`] = `
             xs={12}
           >
             <WithStyles(ForwardRef(Button))
+              className="makeStyles-submit-4"
               color="primary"
               fullWidth={true}
               type="submit"
