@@ -3,9 +3,6 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './Calendar.css'
 
-
-
-
 export default class Sample extends Component {
   state = {
     value: new Date(),
@@ -20,9 +17,9 @@ export default class Sample extends Component {
     return (
       <div className="Sample">
         <header>
-          <h1>Date of Jernal</h1>
+          <h1>Date of Journal</h1>
         </header>
-        <div className="Sample__container">
+          <div className="Sample__container">
           <main className="Sample__container__content">
             <Calendar
               onChange={this.onChange}
