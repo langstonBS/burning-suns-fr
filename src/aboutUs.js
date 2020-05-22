@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import kPhoto from './kigers.jpg'
 import mPhoto from './melisa.jpg'
-import rPhoto from './rachel.jpg'
 import Card from './aboutUsCard'
 
 import './aboutUs.css'
@@ -23,7 +22,7 @@ export default class aboutUs extends Component {
                         detail={"space, there is a lot of it"} />
                         <Card name={'Rachel'}
                         alt={'space the finial frontear'}
-                        photo={rPhoto}
+                        photo={mPhoto}
                         detail={"Earth-bound alien."} />
                         <Card name={'Langston'}
                         alt={'space the finial frontear'}
