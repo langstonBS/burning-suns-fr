@@ -37,11 +37,7 @@ export default function Header(props)  {
     }))
     const classes = useStyles();
         return (
-            // <div>
-            //    <ul className={classes.header} variant="h6">
-            //         {props.token !== '' && <li><Link onClick={() => props.handleUserChange('')} to="/SignInPage"><div>Logout</div></Link></li>}
-            //     </ul>
-            // </div>
+
             <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
                   <Toolbar className={classes.toolbar}>
                     <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
