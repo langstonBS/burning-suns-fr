@@ -4,10 +4,9 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import request from 'superagent';
 import { Button } from "@material-ui/core";
-import useStyles from './theme'
-
-import './DetailPage.css'
-
+import useStyles from './theme';
+import { Box } from '@material-ui/core';
+import './DetailPage.css';
 
 export default function DetailPage(props) {
   const classes = useStyles();
@@ -92,9 +91,10 @@ export default function DetailPage(props) {
   }
 
   return (
-    <Container component="main">
+      
+    <Container component="main" className={classes.form}>
         <div >
-          <Typography  variant="h1">
+          <Typography  variant="h1" className={classes.title}>
             Details for {locData.name}, {locData.country !== 'United States of America' ? locData.country : locData.region}
           </Typography>
 
@@ -110,12 +110,12 @@ export default function DetailPage(props) {
                   title={`Star Map for ${locData.name}`}
                   width="1000" 
                   height="1000" 
-                  frameborder="0" 
+                  frameBorder="0" 
                   scrolling="no" 
-                  marginheight="0" 
-                  marginwidth="0" 
+                  marginHeight="0" 
+                  marginWidth="0" 
                   src={`https://virtualsky.lco.global/embed/index.html?longitude=${locData.lon}&latitude=${locData.lat}&projection=stereo&constellations=true&constellationlabels=true&meteorshowers=true&live=true`} 
-                  allowTransparency="true" />
+                  allowtransparency="true" />
 
               <Typography component="p">
                   Star Map created with <Link to="https://slowe.github.io/VirtualSky/">VirtualSky</Link>
