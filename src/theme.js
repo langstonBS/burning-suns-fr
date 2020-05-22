@@ -8,7 +8,7 @@ const sam = createMuiTheme({
     palette: {
         primary: {
             light: '#d1c4e9',
-            main: '#fff8e1',
+            main: '#3F51B5',
             dark: '#4527a0',
             contrastText: '#fff',
         },
@@ -25,20 +25,22 @@ const sam = createMuiTheme({
 
         h1: {
             fontFamily: 'Helvetica Neue',
-            fontSize: '3.5em',
+            fontSize: '4em',
+            fontWeight: 'bolder',
+            textAlign:'center'
         },
         h2: {
             fontFamily: 'Helvetica Neue',
-            fontSize: '2em',
+            fontSize: '1em',
+        },
+        h6: {
+            fontFamily: 'Helvetica Neue',
+            fontSize: '1em',
         },
         p: {
             fontFamily: 'Helvetica Neue',
             fontSize: '1em',
         },
-        Container:
-        {
-
-        }
 
     }
 });
@@ -49,6 +51,10 @@ const useStyles = makeStyles(() => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        padding: sam.spacing(2),
+        borderRadius: '20px',
+        opacity: '80%',
+        backgroundColor: sam.palette.primary.light
     },
     avatar: {
         margin: sam.spacing(1),
@@ -63,6 +69,7 @@ const useStyles = makeStyles(() => ({
     submit: {
         margin: sam.spacing(3, 0, 2),
         backgroundColor: sam.palette.primary.main,
+        opacity: '100%',
         
     },
     header: {
@@ -71,7 +78,31 @@ const useStyles = makeStyles(() => ({
     title: {
         fontSize: sam.typography.h1.fontSize
     },
-    
+    root: {
+        width: '100%',
+      },
+    heading: {
+        fontSize: sam.typography.pxToRem(15),
+        flexBasis: '33.33%',
+        flexShrink: 0,
+    },
+    secondaryHeading: {
+        fontSize: sam.typography.pxToRem(15),
+        color: sam.palette.text.secondary,
+    },
+    form2: {
+        width: '100%', // Fix IE 11 issue.v
+        marginTop: sam.spacing(3),
+    },
+    card: {
+        display: 'flex',
+      },
+      cardDetails: {
+        flex: 1,
+      },
+      cardMedia: {
+        width: 160,
+      },    
     container: {
         backgroundColor: 'white',
         width: '50%',

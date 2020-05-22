@@ -7,7 +7,7 @@ import useStyles from './theme';
 export default function AboutUsCard(props) {
 const classes = useStyles();
     return (
-            <div chassName={classes.paper} >
+            <div  >
                 <li className="AboutUsStyle">
                     <div className="immageContainer">
                     <h2>{props.name}</h2>

@@ -1,29 +1,17 @@
 import React, { useState, useEffect } from "react"
 import request from "superagent"
-import Grid from '@material-ui/core/Grid';
+import Grid from '@material-ui/core/Grid'
 import Post from "./Post.js"
 import NoteForm from './NoteForm'
-import { makeStyles } from '@material-ui/core/styles';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel'
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
+import Typography from '@material-ui/core/Typography'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import Divider from '@material-ui/core/Divider'
+import Box from '@material-ui/core/Box';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-      width: '100%',
-    },
-    heading: {
-      fontSize: theme.typography.pxToRem(15),
-      flexBasis: '33.33%',
-      flexShrink: 0,
-    },
-    secondaryHeading: {
-      fontSize: theme.typography.pxToRem(15),
-      color: theme.palette.text.secondary,
-    },
-  }));
+import useStyles from './theme'
 
 export default function NotesPage(props) {
     const token = props.token;
@@ -61,12 +49,15 @@ export default function NotesPage(props) {
                     <Typography className={classes.heading}>Add a Note or a Wish</Typography>
                     <Typography className={classes.secondaryHeading}>Expand to enter details</Typography>
                 </ExpansionPanelSummary>
-                <ExpansionPanelDetails>
-                <NoteForm token={props.token} updateNotes={setNotes} />
+                <ExpansionPanelDetails mx="auto">
+                    <Box mx="auto" bgcolor="background.paper" p={1}>
+                    <NoteForm token={props.token} updateNotes={setNotes} />
+                    </Box>
+                
                 </ExpansionPanelDetails>
             </ExpansionPanel>
 
-            
+            <Divider />
             {notes.length === 0 ?
                 <p>Add some notes!</p>
                 : (

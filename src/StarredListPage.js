@@ -3,8 +3,10 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import request from 'superagent';
+import useStyles from './theme';
 
 export default function StarredListPage(props) {
+  const classes = useStyles();
   // retrieve token for API call -- first try from props, then from localStorage if prop unset (ex. page refresh)
   const token = props.token || localStorage.getItem('TOKEN')
 
@@ -32,7 +34,7 @@ export default function StarredListPage(props) {
   }
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" className={classes.paper} maxWidth="xs">
         <Container component="section">
             <Typography component="h1" variant="h5">
                 Your favorite stargazing spots

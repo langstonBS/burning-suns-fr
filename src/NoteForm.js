@@ -7,26 +7,13 @@ import FormControlLabel from '@material-ui/core/FormControlLabel'
 import MenuItem from '@material-ui/core/MenuItem'
 import DatePicker from 'react-date-picker'
 import Checkbox from '@material-ui/core/Checkbox'
-import { makeStyles } from '@material-ui/core/styles'
 import { Container } from "@material-ui/core"
 import Button from '@material-ui/core/Button'
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import StarIcon from '@material-ui/icons/Star';
 import moment from 'moment'
 
-const useStyles = makeStyles((theme) => ({
-    paper: {
-        marginTop: theme.spacing(8),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
-    form: {
-        width: '100%', // Fix IE 11 issue.v
-        marginTop: theme.spacing(3),
-    }
-}));
-
+import useStyles from './theme'
 
 export default function NoteForm(props) {
     const classes = useStyles();
@@ -75,6 +62,9 @@ export default function NoteForm(props) {
         if (body === '') {
             setError('please add some text to the message')
         }
+        if (locObj === '') {
+            setError('please choose a city from your list')
+        }
         try {
             const posted = await request
                 .post( url + notesEnd, { lat:locObj.lat, 
@@ -95,7 +85,7 @@ export default function NoteForm(props) {
                     <Typography variant="h6" gutterBottom>
                         Add a {wish ? 'Wish' : 'Note'}
                     </Typography>
-                    <form className={classes.form} onSubmit={postNote}>
+                    <form className={classes.form2} onSubmit={postNote}>
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
                                 <TextField
