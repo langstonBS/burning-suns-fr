@@ -33,26 +33,6 @@ const useStyles = makeStyles({
 export default function FeaturedPost(props) {
   const classes = useStyles()
   const { post } = props
-  const token = props.token;
-
-const getNote = async(e, id) => {
-  const note = await request.get(`https://stark-mesa-84010.herokuapp.com/api/note/${id}`)
-  console.log(note)
-}
-
-
-const updateNote = async(e, id) => {
-  const note = await request.get(`https://stark-mesa-84010.herokuapp.com/api/note/${id}`)
-  console.log(note)
-}
-
-const deleteNote = async(e, id) => {
-  const posted = await request
-  .delete(`https://stark-mesa-84010.herokuapp.com/api/note/${id}`)
-  .set("Authorization", token);
-  const notes = await request.get('https://stark-mesa-84010.herokuapp.com/api/notes').set("Authorization", token)
-  props.updateNotes(notes.body)
-}
 
   return (
     <Grid item xs={12} md={6}>
