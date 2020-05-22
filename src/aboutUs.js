@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import kPhoto from './kigers.jpg'
 import mPhoto from './melisa.jpg'
-import Card from './aboutUsCard';
-import rPhoto from 'Rachel.jpg'
+import rPhoto from './rachel.jpg'
+import Card from './aboutUsCard'
+
 import './aboutUs.css'
 
 export default class aboutUs extends Component {
@@ -14,15 +15,15 @@ export default class aboutUs extends Component {
                     <Card name={'Nikki'}
                         alt={'space the finial frontear'}
                         photo={kPhoto}
-                        detail={"Lorem ipsum dolor sit amet,consectetur adipiscing elit, sed do eiusmod"} />
+                        detail={"Nikki, Wishing on stars and VScode"} />
                         <Card name={'Melissa'}
                         alt={'space the finial frontear'}
-                        photo={rPhoto}
-                        detail={"Lorem ipsum dolor sit amet,consectetur adipiscing elit, sed do eiusmod"} />
+                        photo={mPhoto}
+                        detail={"space, there is a lot of it"} />
                         <Card name={'Rachel'}
                         alt={'space the finial frontear'}
-                        photo={mPhoto}
-                        detail={"Lorem ipsum dolor sit amet,consectetur adipiscing elit, sed do eiusmod"} />
+                        photo={rPhoto}
+                        detail={"Earth-bound alien."} />
                         <Card name={'Langston'}
                         alt={'space the finial frontear'}
                         photo={mPhoto}

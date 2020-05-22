@@ -1,15 +1,22 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Hidden from '@material-ui/core/Hidden';
-import Link from '@material-ui/core/Link';
-import DeleteSharpIcon from '@material-ui/icons/DeleteSharp';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { makeStyles } from '@material-ui/core/styles'
+import Typography from '@material-ui/core/Typography'
+import Grid from '@material-ui/core/Grid'
+import Card from '@material-ui/core/Card'
+import CardActionArea from '@material-ui/core/CardActionArea'
+import CardContent from '@material-ui/core/CardContent'
+import request from "superagent"
+
+import CardMedia from '@material-ui/core/CardMedia'
+import Hidden from '@material-ui/core/Hidden'
+import Link from '@material-ui/core/Link'
+import DeleteSharpIcon from '@material-ui/icons/DeleteSharp'
+import IconButton from '@material-ui/core/IconButton'
+import EditIcon from '@material-ui/icons/Edit';
+
+import Brightness4Icon from '@material-ui/icons/Brightness4';
+import CommentIcon from '@material-ui/icons/Comment';
 
 const useStyles = makeStyles({
   card: {
@@ -21,14 +28,11 @@ const useStyles = makeStyles({
   cardMedia: {
     width: 160,
   },
-});
+})
 
 export default function FeaturedPost(props) {
-  const classes = useStyles();
-  const { post } = props;
-//const moment = require('moment');
-//moment().format();
-//const cleanDate = moment(DATEVAR, 'MM-DD-YYYY').format('ll');
+  const classes = useStyles()
+  const { post } = props
 
   return (
     <Grid item xs={12} md={6}>
@@ -36,6 +40,13 @@ export default function FeaturedPost(props) {
         <Card className={classes.card}>
           <div className={classes.cardDetails}>
             <CardContent>
+              <Grid>
+
+              </Grid>
+              {post.wish ?
+                  <Brightness4Icon/>
+                  : <CommentIcon/>
+              }
               <Typography component="h2" variant="h5">
                 {post.title}
               </Typography>
@@ -48,17 +59,12 @@ export default function FeaturedPost(props) {
               <Typography variant="subtitle1" paragraph>
                 {post.city}
               </Typography>
-              <Link>
+              <Link href={`/DetailPage/${post.city},%20${post.state}`}>
                 <Typography variant="subtitle1" color="primary">
-                    Show if there is an attached city
+                    Details for City
                 </Typography>
               </Link>
-
-              {
- 
-              }
             </CardContent>
-            <DeleteSharpIcon className={classes.icon} />
           </div>
           <Hidden xsDown>
             <CardMedia className={
