@@ -1,34 +1,21 @@
 import React, { useState, useEffect } from "react"
 import request from "superagent"
-import Grid from '@material-ui/core/Grid';
+import Grid from '@material-ui/core/Grid'
 import Post from "./Post.js"
 import NoteForm from './NoteForm'
-import { makeStyles } from '@material-ui/core/styles';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-      width: '100%',
-    },
-    heading: {
-      fontSize: theme.typography.pxToRem(15),
-      flexBasis: '33.33%',
-      flexShrink: 0,
-    },
-    secondaryHeading: {
-      fontSize: theme.typography.pxToRem(15),
-      color: theme.palette.text.secondary,
-    },
-  }));
+import ExpansionPanel from '@material-ui/core/ExpansionPanel'
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
+import Typography from '@material-ui/core/Typography'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import Divider from '@material-ui/core/Divider'
+import Box from '@material-ui/core/Box';
+import useStyles from './theme'
 
 export default function NotesPage(props) {
     const token = props.token;
     const classes = useStyles();
-    const [notes, setNotes] = useState([]) //How to make this re-render after something is posted?
+    const [notes, setNotes] = useState([])
     const [expanded, setExpanded] = React.useState(false);
 
     const handleChange = (panel) => (event, isExpanded) => {
@@ -43,7 +30,6 @@ export default function NotesPage(props) {
                 setNotes(fetchedData.body)
             }
             fetchNotes()
-            // getCities()
         } catch (e) {
             console.error(e)
         }
@@ -58,23 +44,25 @@ export default function NotesPage(props) {
                     aria-controls="panel1bh-content"
                     id="panel1bh-header"
                 >
-                    <Typography className={classes.heading}>Add a Note or a Wish</Typography>
-                    <Typography className={classes.secondaryHeading}>Expand to enter details</Typography>
+                    <Typography className={classes.heading}>
+                        Add a Note or a Wish</Typography>
+                    <Typography className={classes.secondaryHeading}>
+                        Expand to enter details</Typography>
                 </ExpansionPanelSummary>
-                <ExpansionPanelDetails>
-                <NoteForm token={props.token} updateNotes={setNotes} />
+                <ExpansionPanelDetails mx="auto">
+                    <Box mx="auto" bgcolor="background.paper" p={1}>
+                    <NoteForm token={props.token} updateNotes={setNotes} />
+                    </Box>
                 </ExpansionPanelDetails>
             </ExpansionPanel>
 
-            
+            <Divider />
             {notes.length === 0 ?
                 <p>Add some notes!</p>
                 : (
                     <div>
-                        {/* {console.log(notes[0].title)} */}
                         <Grid container spacing={4}>
                             {notes.map((note) => (
-
                                 <Post
                                     key={`${note.title}, ${note.body}`}
                                     post={note}
@@ -83,11 +71,9 @@ export default function NotesPage(props) {
                                 />
                             ))}
                         </Grid>
-
                     </div>
                 )
             }
-
         </div>
     );
 }

@@ -7,26 +7,12 @@ import FormControlLabel from '@material-ui/core/FormControlLabel'
 import MenuItem from '@material-ui/core/MenuItem'
 import DatePicker from 'react-date-picker'
 import Checkbox from '@material-ui/core/Checkbox'
-import { makeStyles } from '@material-ui/core/styles'
 import { Container } from "@material-ui/core"
 import Button from '@material-ui/core/Button'
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import StarIcon from '@material-ui/icons/Star';
 import moment from 'moment'
-
-const useStyles = makeStyles((theme) => ({
-    paper: {
-        marginTop: theme.spacing(8),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
-    form: {
-        width: '100%', // Fix IE 11 issue.v
-        marginTop: theme.spacing(3),
-    }
-}));
-
+import useStyles from './theme'
 
 export default function NoteForm(props) {
     const classes = useStyles();
@@ -36,16 +22,21 @@ export default function NoteForm(props) {
     const url = "https://stark-mesa-84010.herokuapp.com";
     const notesEnd = '/api/notes'
     const cityEnd = '/api/saved-locations'
-    
-    const [date, setDate] = useState(new Date()) //Listens to dropdown from datePicker
-    const [title, setTitle] = useState("") //Set in the note form
-    const [body, setBody] = useState("") //Set in the note form
-    const [wish, setWish] = useState(false) //Set in the note form by the checkbox
-    const [error, setError] = useState('') //Only set if form validation is flagged
 
-    const [starredCities, setStarredCities] = useState(['']) //Queried from the database
-
-    const [locObj, setLocObj] = useState('') //Set from the dropdown of the starred cities
+    //Listens to dropdown from datePicker
+    const [date, setDate] = useState(new Date())
+    //Set in the note form
+    const [title, setTitle] = useState("")
+    //Set in the note form
+    const [body, setBody] = useState("")
+    //Set in the note form by the checkbox
+    const [wish, setWish] = useState(false)
+    //Only set if form validation is flagged
+    const [error, setError] = useState('')
+    //Queried from the database
+    const [starredCities, setStarredCities] = useState([''])
+    //Set from the dropdown of the starred cities
+    const [locObj, setLocObj] = useState('')
 
     useEffect(() => {
         try {
@@ -64,16 +55,17 @@ export default function NoteForm(props) {
         }
     }
 
-    
     const postNote = async (e) => {
-        
         e.preventDefault();
-        console.log(props)
+
         if (title === '') {
             setError('please enter a title')
         }
         if (body === '') {
             setError('please add some text to the message')
+        }
+        if (locObj === '') {
+            setError('please choose a city from your list')
         }
         try {
             const posted = await request
@@ -81,8 +73,11 @@ export default function NoteForm(props) {
                     lon:locObj.lon, 
                     city:locObj.city+', '+locObj.state, date:moment(date, 'MM-DD-YYYY').format('ll'), title, body, wish })
                 .set("Authorization", token);
+
             const notes = await request.get('https://stark-mesa-84010.herokuapp.com/api/notes').set("Authorization", token)
+
             props.updateNotes(notes.body)
+
         } catch (e) {
             console.error(e);
         }
@@ -95,7 +90,7 @@ export default function NoteForm(props) {
                     <Typography variant="h6" gutterBottom>
                         Add a {wish ? 'Wish' : 'Note'}
                     </Typography>
-                    <form className={classes.form} onSubmit={postNote}>
+                    <form className={classes.form2} onSubmit={postNote}>
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
                                 <TextField
@@ -170,9 +165,7 @@ export default function NoteForm(props) {
                         </Grid>
                     </form>
                 </div>
-
             </Container>
-
         </div>
     )
 }

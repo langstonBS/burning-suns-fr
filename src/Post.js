@@ -6,29 +6,12 @@ import Grid from '@material-ui/core/Grid'
 import Card from '@material-ui/core/Card'
 import CardActionArea from '@material-ui/core/CardActionArea'
 import CardContent from '@material-ui/core/CardContent'
-import request from "superagent"
-
 import CardMedia from '@material-ui/core/CardMedia'
 import Hidden from '@material-ui/core/Hidden'
 import Link from '@material-ui/core/Link'
-import DeleteSharpIcon from '@material-ui/icons/DeleteSharp'
-import IconButton from '@material-ui/core/IconButton'
-import EditIcon from '@material-ui/icons/Edit';
-
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import CommentIcon from '@material-ui/icons/Comment';
-
-const useStyles = makeStyles({
-  card: {
-    display: 'flex',
-  },
-  cardDetails: {
-    flex: 1,
-  },
-  cardMedia: {
-    width: 160,
-  },
-})
+import useStyles from './theme';
 
 export default function FeaturedPost(props) {
   const classes = useStyles()
@@ -41,7 +24,6 @@ export default function FeaturedPost(props) {
           <div className={classes.cardDetails}>
             <CardContent>
               <Grid>
-
               </Grid>
               {post.wish ?
                   <Brightness4Icon/>
@@ -56,12 +38,9 @@ export default function FeaturedPost(props) {
               <Typography variant="subtitle1" paragraph>
                 {post.body}
               </Typography>
-              <Typography variant="subtitle1" paragraph>
-                {post.city}
-              </Typography>
               <Link href={`/DetailPage/${post.city},%20${post.state}`}>
                 <Typography variant="subtitle1" color="primary">
-                    Details for City
+                {post.city}
                 </Typography>
               </Link>
             </CardContent>

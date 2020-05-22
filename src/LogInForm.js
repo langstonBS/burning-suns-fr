@@ -8,10 +8,10 @@ import request from 'superagent';
 import { useHistory } from 'react-router-dom';
 import './App.css';
 import './Header.css';
-
+import useStyles from './theme'
 
 export default function LogIn(props) {
-  //const classes = useStyles();
+  const classes = useStyles();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const history = useHistory()
@@ -20,29 +20,33 @@ export default function LogIn(props) {
 
   const handelSubmit = async (e) => {
     e.preventDefault()
+
     if (!reg.test(email)) {
       setError('invalid email');
       return;
     }
+
     try {
       const data = await request.post(props.url, { email, password })
       props.handleUserChange(data.body.token)
 
       history.push('/SearchPage')
+
     } catch (e) {
       setError(e.response.body.error)
     }
-
   }
+
   return (
+    
     <Container component="main" maxWidth="xs">
-      <div className='paper'>
-        <Avatar className="avatar">
+      <div className={classes.paper}>
+        <Avatar className={classes.avatar}>
         </Avatar>
         <h2 component="h1" variant="h5">
           {props.title}
         </h2>
-        <form className="form" onSubmit={handelSubmit} noValidate>
+        <form className={classes.form} onSubmit={handelSubmit} noValidate>
           <TextField
             variant="outlined"
             margin="normal"
@@ -55,7 +59,6 @@ export default function LogIn(props) {
             onChange={e => setEmail(e.target.value)}
             autoComplete="email"
             autoFocus
-
           />
           <TextField
             variant="outlined"
