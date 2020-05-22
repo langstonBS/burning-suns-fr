@@ -9,7 +9,7 @@ import './DetailPage.css';
 
 export default function DetailPage(props) {
   const classes = useStyles();
-  // retrieve token for API call -- first try from props, then from localStorage if prop unset (ex. page refresh)
+  // retrieve token for API call
   const token = props.token || localStorage.getItem('TOKEN')
 
   // retrieve city name from url param (/:city) for API call
@@ -63,9 +63,7 @@ export default function DetailPage(props) {
           </Typography>
 
           <Container component="section">
-
             <Container component="article">
-
               <Typography component="h1" variant="h5">
                 Constellations over {locData.name} on {astroData.date}
               </Typography>
@@ -86,7 +84,6 @@ export default function DetailPage(props) {
               </Typography>
 
             </Container>
-
             <Container component="article">
 
                 <Typography component="h1" variant="h5">
@@ -100,6 +97,7 @@ export default function DetailPage(props) {
                 <Typography component="p" variant="h6">
                     Cloud cover: {currentData.cloudcover}%
                 </Typography>
+
                 <Typography component="p" variant="h6">
                     Visibility: {currentData.visibility} km
                 </Typography>
@@ -114,18 +112,17 @@ export default function DetailPage(props) {
                 <Typography component="p" variant="h6">
                     Sunset will be around {astroData.sunrise}.
                 </Typography>
+
                 <Typography component="p" variant="h6">
+
                     Moonrise will be around {astroData.moonrise}.
                 </Typography>
-
                 {
                   !isSaved
                   ? <Button className={classes.submit} onClick={handleSave}>Save to favorites</Button>
                   : <Button className={classes.submit} onClick={handleDelete}>Remove from favorites</Button>
                 }
-                
             </Container>
-
           </Container>
         </div>
       </Container>
@@ -145,16 +142,13 @@ export default function DetailPage(props) {
       .get(`https://stark-mesa-84010.herokuapp.com/api/weather/${cityName}`)
       .set("Authorization", token);
 
-    // console.log(weatherFetch)
-
     setCurrentData(weatherFetch.body.current)
 
     // get the target location's astro data
     const astroFetch = await request
       .get(`https://stark-mesa-84010.herokuapp.com/api/astro?lat=${locFetch.body.lat}&long=${locFetch.body.lon}`)
       .set("Authorization", token);
-
-    console.log(astroFetch.body)
+      
     setAstroData(astroFetch.body)
 
     // use the fetched location data to generate save object for larget location
@@ -176,6 +170,5 @@ export default function DetailPage(props) {
     })
 
     if (checkedSave[0]) { setIsSaved(true) }
-
   }
 }

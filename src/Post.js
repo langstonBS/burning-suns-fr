@@ -6,14 +6,11 @@ import Grid from '@material-ui/core/Grid'
 import Card from '@material-ui/core/Card'
 import CardActionArea from '@material-ui/core/CardActionArea'
 import CardContent from '@material-ui/core/CardContent'
-
 import CardMedia from '@material-ui/core/CardMedia'
 import Hidden from '@material-ui/core/Hidden'
 import Link from '@material-ui/core/Link'
-
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import CommentIcon from '@material-ui/icons/Comment';
-
 import useStyles from './theme';
 
 export default function FeaturedPost(props) {
@@ -27,7 +24,6 @@ export default function FeaturedPost(props) {
           <div className={classes.cardDetails}>
             <CardContent>
               <Grid>
-
               </Grid>
               {post.wish ?
                   <Brightness4Icon/>

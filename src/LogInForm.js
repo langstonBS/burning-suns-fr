@@ -8,7 +8,6 @@ import request from 'superagent';
 import { useHistory } from 'react-router-dom';
 import './App.css';
 import './Header.css';
-
 import useStyles from './theme'
 
 export default function LogIn(props) {
@@ -21,21 +20,25 @@ export default function LogIn(props) {
 
   const handelSubmit = async (e) => {
     e.preventDefault()
+
     if (!reg.test(email)) {
       setError('invalid email');
       return;
     }
+
     try {
       const data = await request.post(props.url, { email, password })
       props.handleUserChange(data.body.token)
 
       history.push('/SearchPage')
+
     } catch (e) {
       setError(e.response.body.error)
     }
-
   }
+
   return (
+    
     <Container component="main" maxWidth="xs">
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -56,7 +59,6 @@ export default function LogIn(props) {
             onChange={e => setEmail(e.target.value)}
             autoComplete="email"
             autoFocus
-
           />
           <TextField
             variant="outlined"

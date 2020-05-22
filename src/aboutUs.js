@@ -10,7 +10,7 @@ export default class aboutUs extends Component {
 
     render() {
         return (
-            <>
+            <div>
                 <ul>
                     <Card name={'Nikki'}
                         alt={'space the finial frontear'}
@@ -29,9 +29,9 @@ export default class aboutUs extends Component {
                         photo={mPhoto}
                         detail={"There is so much about me to know"} />
 
+
                 </ul>
-               
-            </>
+            </div>
         )
     }
 }

@@ -10,13 +10,12 @@ import Typography from '@material-ui/core/Typography'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import Divider from '@material-ui/core/Divider'
 import Box from '@material-ui/core/Box';
-
 import useStyles from './theme'
 
 export default function NotesPage(props) {
     const token = props.token;
     const classes = useStyles();
-    const [notes, setNotes] = useState([]) //How to make this re-render after something is posted?
+    const [notes, setNotes] = useState([])
     const [expanded, setExpanded] = React.useState(false);
 
     const handleChange = (panel) => (event, isExpanded) => {
@@ -31,7 +30,6 @@ export default function NotesPage(props) {
                 setNotes(fetchedData.body)
             }
             fetchNotes()
-            // getCities()
         } catch (e) {
             console.error(e)
         }
@@ -46,14 +44,15 @@ export default function NotesPage(props) {
                     aria-controls="panel1bh-content"
                     id="panel1bh-header"
                 >
-                    <Typography className={classes.heading}>Add a Note or a Wish</Typography>
-                    <Typography className={classes.secondaryHeading}>Expand to enter details</Typography>
+                    <Typography className={classes.heading}>
+                        Add a Note or a Wish</Typography>
+                    <Typography className={classes.secondaryHeading}>
+                        Expand to enter details</Typography>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails mx="auto">
                     <Box mx="auto" bgcolor="background.paper" p={1}>
                     <NoteForm token={props.token} updateNotes={setNotes} />
                     </Box>
-                
                 </ExpansionPanelDetails>
             </ExpansionPanel>
 
@@ -62,10 +61,8 @@ export default function NotesPage(props) {
                 <p>Add some notes!</p>
                 : (
                     <div>
-                        {/* {console.log(notes[0].title)} */}
                         <Grid container spacing={4}>
                             {notes.map((note) => (
-
                                 <Post
                                     key={`${note.title}, ${note.body}`}
                                     post={note}
@@ -74,11 +71,9 @@ export default function NotesPage(props) {
                                 />
                             ))}
                         </Grid>
-
                     </div>
                 )
             }
-
         </div>
     );
 }

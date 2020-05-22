@@ -18,17 +18,16 @@ import Notes from './Notes'
 import Footer from './Footer'
 import Calendar from './Calendar';
 import { createMuiTheme } from "@material-ui/core";
-import Theam from './theme';
+import Theme from './theme';
 import request from "superagent";
-// import { render } from "@testing-library/react";
 
 function setBg(imageUrl) {
   document.body.style.backgroundImage = `url('${imageUrl}')`
   document.body.style.backgroundSize = 'cover'
 }
 
+const theme = createMuiTheme(Theme)
 
-const theam = createMuiTheme(Theam)
 export default class App extends Component{
   state = {
     token: localStorage.getItem('TOKEN'),
@@ -36,7 +35,6 @@ export default class App extends Component{
 
   componentDidMount = async () => {
     const response = await request.get('https://stark-mesa-84010.herokuapp.com/nasa')
-    // console.log(response)
     setBg(response.body.url)
   }
 
@@ -45,49 +43,42 @@ export default class App extends Component{
     localStorage.setItem('TOKEN', newToken)
   }
   
-  
   render() {
-    console.log(theam)
+    console.log(theme)
     return (
       <Router>
         <Header token={this.state.token} handleUserChange={this.handleUserChange}/>
-        <Switch>
-        <Route exact path="/" render={(routerProps) => 
-          < Redirect to="/SearchPage" />}
-          />
-          <Route path="/SignInPage" render={(routerProps) => 
-          <SignInPage handleUserChange={this.handleUserChange} {...routerProps} />}
-          />
-
-          <Route path="/SignUpPage" render={(routerProps) =>
-            <SignUpPage handleUserChange={this.handleUserChange} {...routerProps} />}
-          /> 
-      <Route path="/Calendar" render={(routerProps) => 
-          <Calendar {...routerProps} />} 
-          />
-
-          <PrivateRoute path="/SearchPage" token = {this.state.token} render={(routerProps) => 
-          <SearchPage {...routerProps} />} 
-          />
-
-          <PrivateRoute path="/DetailPage/:city" token = {this.state.token}render={(routerProps) => 
-          <DetailPage {...routerProps} />} 
-          />
-
-          <PrivateRoute path="/StarredListPage" token = {this.state.token} render={(routerProps) => 
-          <StarredListPage {...routerProps} />} 
-          />
-          <PrivateRoute path="/Notes" token = {this.state.token} render={(routerProps) => 
-            <Notes {...routerProps} />} 
-          />
-          <Route path="/aboutUs" render={(routerProps) => 
-          <AboutUs {...routerProps} />} 
-          />
-
-
+          <Switch>
+            <Route exact path="/" render={(routerProps) => 
+              < Redirect to="/SearchPage" />}
+            />
+            <Route path="/SignInPage" render={(routerProps) => 
+              <SignInPage handleUserChange={this.handleUserChange} {...routerProps} />}
+            />
+            <Route path="/SignUpPage" render={(routerProps) =>
+              <SignUpPage handleUserChange={this.handleUserChange} {...routerProps} />}
+            /> 
+            <Route path="/Calendar" render={(routerProps) => 
+              <Calendar {...routerProps} />} 
+            />
+            <PrivateRoute path="/SearchPage" token = {this.state.token} render={(routerProps) => 
+              <SearchPage {...routerProps} />} 
+            />
+            <PrivateRoute path="/DetailPage/:city" token = {this.state.token}render={(routerProps) => 
+              <DetailPage {...routerProps} />} 
+            />
+            <PrivateRoute path="/StarredListPage" token = {this.state.token} render={(routerProps) => 
+              <StarredListPage {...routerProps} />} 
+            />
+            <PrivateRoute path="/Notes" token = {this.state.token} render={(routerProps) => 
+              <Notes {...routerProps} />} 
+            />
+            <Route path="/aboutUs" render={(routerProps) => 
+              <AboutUs {...routerProps} />} 
+            />
          </Switch>
-         <Footer/>
-    </Router>
-  );
-}
+        <Footer/>
+      </Router>
+    );
+  }
 }
