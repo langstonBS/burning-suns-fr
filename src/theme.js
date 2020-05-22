@@ -1,8 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { responsiveFontSizes } from '@material-ui/core/styles';
-import deepPurple from '@material-ui/core/colors/purple';
-import amber from '@material-ui/core/colors/purple';
 import './theme.css';
 
 const sam = createMuiTheme({
@@ -58,7 +56,32 @@ const useStyles = makeStyles(() => ({
     },
     title: {
         fontSize: sam.typography.h1.fontSize
-    }
+    },
+    root: {
+        width: '100%',
+      },
+    heading: {
+        fontSize: sam.typography.pxToRem(15),
+        flexBasis: '33.33%',
+        flexShrink: 0,
+    },
+    secondaryHeading: {
+        fontSize: sam.typography.pxToRem(15),
+        color: sam.palette.text.secondary,
+    },
+    form2: {
+        width: '100%', // Fix IE 11 issue.v
+        marginTop: sam.spacing(3),
+    },
+    card: {
+        display: 'flex',
+      },
+      cardDetails: {
+        flex: 1,
+      },
+      cardMedia: {
+        width: 160,
+      },    
 }));
 
 export default useStyles;
