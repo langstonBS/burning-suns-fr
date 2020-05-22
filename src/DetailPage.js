@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
+<<<<<<< HEAD
 // import CssBaseline from '@material-ui/core/CssBaseline';
+=======
+import CssBaseline from '@material-ui/core/CssBaseline';
+>>>>>>> 9d44729b1840ca231595d84e33ee4d74a9b67078
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
@@ -8,7 +12,6 @@ import { Button } from "@material-ui/core";
 import useStyles from './theme'
 
 import './DetailPage.css'
-
 
 
 export default function DetailPage(props) {

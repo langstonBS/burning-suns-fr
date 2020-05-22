@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -11,29 +11,29 @@ import './Header.css';
 
 
 export default function LogIn(props) {
-   //const classes = useStyles();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const history = useHistory()
-  const [ error, setError ] = useState('');
-    const reg = /.+\@.+\..+/
+  //const classes = useStyles();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const history = useHistory()
+  const [error, setError] = useState('');
+  const reg = /.+\@.+\..+/
 
-    const handelSubmit = async (e) => {
-      e.preventDefault()
-      if (!reg.test(email)) {
-        setError('invaled email');
-        return;
-      }
-        try {
-            const data = await request.post(props.url, { email, password })
-          props.handleUserChange(data.body.token)
-          
-            history.push('/SearchPage')
-        } catch (e) {
-          setError(e.response.body.error)
-      }
-      
+  const handelSubmit = async (e) => {
+    e.preventDefault()
+    if (!reg.test(email)) {
+      setError('invalid email');
+      return;
     }
+    try {
+      const data = await request.post(props.url, { email, password })
+      props.handleUserChange(data.body.token)
+
+      history.push('/SearchPage')
+    } catch (e) {
+      setError(e.response.body.error)
+    }
+
+  }
   return (
     <Container component="main" maxWidth="xs">
       <div className='paper'>
@@ -43,20 +43,19 @@ export default function LogIn(props) {
           {props.title}
         </h2>
         <form className="form" onSubmit={handelSubmit} noValidate>
-                  <TextField
-                      variant="outlined"
-                      margin="normal"
-                      required
-                      fullWidth
-                      id="email"
-                      label="Email Address"
-                      name="email"
-                      value={email}
-                      onChange={e => setEmail(e.target.value)}
-                      helperText={error}
-                    autoComplete="email"
-                        autoFocus
-                      
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            autoComplete="email"
+            autoFocus
+
           />
           <TextField
             variant="outlined"
@@ -75,7 +74,7 @@ export default function LogIn(props) {
           <Button
             type="submit"
             fullWidth
-            variant= "contained"
+            variant="contained"
             className="submit"
           >
             {props.title}
@@ -85,7 +84,7 @@ export default function LogIn(props) {
               {props.link}
             </Grid>
           </Grid>
-        </form>     
+        </form>
       </div>
     </Container>
   );
