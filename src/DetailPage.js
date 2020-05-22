@@ -1,35 +1,21 @@
 import React, { useState, useEffect } from "react";
+<<<<<<< HEAD
+// import CssBaseline from '@material-ui/core/CssBaseline';
+=======
 import CssBaseline from '@material-ui/core/CssBaseline';
+>>>>>>> 9d44729b1840ca231595d84e33ee4d74a9b67078
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import request from 'superagent';
 import { Button } from "@material-ui/core";
+import useStyles from './theme'
 
-const useStyles = makeStyles((theme) => ({
-    paper: {
-        marginTop: theme.spacing(8),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
-    avatar: {
-        margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main,
-    },
-    form: {
-        width: '100%', // Fix IE 11 issue.
-        marginTop: theme.spacing(1),
-    },
-    submit: {
-        margin: theme.spacing(3, 0, 2),
-    },
-}));
+import './DetailPage.css'
+
 
 export default function DetailPage(props) {
   const classes = useStyles();
-
   // retrieve token for API call -- first try from props, then from localStorage if prop unset (ex. page refresh)
   const token = props.token || localStorage.getItem('TOKEN')
 
@@ -111,14 +97,13 @@ export default function DetailPage(props) {
   }
 
   return (
-    <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <div className={classes.paper}>
-          <Typography component="h1" variant="h3">
+    <Container component="main">
+        <div >
+          <Typography  variant="h1">
             Details for {locData.name}, {locData.country !== 'United States of America' ? locData.country : locData.region}
           </Typography>
 
-          <Container component="section" maxWidth="xs">
+          <Container component="section">
 
             <Container component="article">
 
@@ -128,8 +113,8 @@ export default function DetailPage(props) {
 
               <iframe 
                   title={`Star Map for ${locData.name}`}
-                  width="300" 
-                  height="350" 
+                  width="1000" 
+                  height="1000" 
                   frameborder="0" 
                   scrolling="no" 
                   marginheight="0" 
@@ -143,7 +128,7 @@ export default function DetailPage(props) {
 
             </Container>
 
-            <Container component="article" maxWidth="xs">
+            <Container component="article">
 
                 <Typography component="h1" variant="h5">
                     Stargazing conditions
@@ -176,8 +161,8 @@ export default function DetailPage(props) {
 
                 {
                   !isSaved
-                  ? <Button onClick={handleSave}>Save to favorites</Button>
-                  : <Button onClick={handleDelete}>Remove from favorites</Button>
+                  ? <Button className={classes.submit} onClick={handleSave}>Save to favorites</Button>
+                  : <Button className={classes.submit} onClick={handleDelete}>Remove from favorites</Button>
                 }
                 
             </Container>

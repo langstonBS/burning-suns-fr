@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Link from '@material-ui/core/Link';
 import Login from './LogInForm'
 
+
 export default class SignUpPage extends Component{
   render() {
     return(
