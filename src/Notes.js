@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from "react"
 import request from "superagent"
-import Icon from '@material-ui/core/Icon';
-import classNames from 'classnames';
-import Brightness3Icon from '@material-ui/icons/Brightness3';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
-import StarIcon from '@material-ui/icons/Star';
 
 import Post from "./Post.js"
 import NoteForm from './NoteForm'
@@ -32,17 +27,21 @@ export default function NotesPage(props) {
 
     return (
         <div>
-            <StarIcon/>
+            
             <NoteForm token={props.token} updateNotes={setNotes}/>
             {notes.length === 0 ? 
                 <p>Add some notes!</p>
                 : (
                     <div>
                         {/* {console.log(notes[0].title)} */}
+                        {console.log(notes)}
                         {notes.map((note) => (
+                            
                             <Post
                                 key={`${note.title}, ${note.body}`}
                                 post={note}
+                                token={token}
+                                updateNotes={setNotes}
                             />
                         ))}
                     </div>

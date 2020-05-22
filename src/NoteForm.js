@@ -10,6 +10,8 @@ import Checkbox from '@material-ui/core/Checkbox'
 import { makeStyles } from '@material-ui/core/styles'
 import { Container } from "@material-ui/core"
 import Button from '@material-ui/core/Button'
+import StarBorderIcon from '@material-ui/icons/StarBorder';
+import StarIcon from '@material-ui/icons/Star';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -74,7 +76,9 @@ export default function NoteForm(props) {
         }
         try {
             const posted = await request
-                .post( url + notesEnd, { lat:locObj.lat, lon:locObj.lon, city:locObj.city, date, title, body, wish })
+                .post( url + notesEnd, { lat:locObj.lat, 
+                    lon:locObj.lon, 
+                    city:locObj.city+', '+locObj.state, date:date.toUTCString(), title, body, wish })
                 .set("Authorization", token);
             const notes = await request.get('https://stark-mesa-84010.herokuapp.com/api/notes').set("Authorization", token)
             props.updateNotes(notes.body)
@@ -125,6 +129,8 @@ export default function NoteForm(props) {
                                     control={<Checkbox
                                         color="secondary"
                                         name="saveCard"
+                                        icon={<StarBorderIcon/>}
+                                        checkedIcon={<StarIcon />}
                                         checked={wish}
                                         onChange={(e) => setWish(e.target.checked)} />}
                                     label="Save as a wish"
