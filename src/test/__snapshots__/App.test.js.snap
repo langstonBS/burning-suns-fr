@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`First React component test with Enzyme renders without crashing 1`] = `
+<BrowserRouter>
+  <Header
+    handleUserChange={[Function]}
+    token={null}
+  />
+  <Switch>
+    <Route
+      exact={true}
+      path="/"
+      render={[Function]}
+    />
+    <Route
+      path="/SignInPage"
+      render={[Function]}
+    />
+    <Route
+      path="/SignUpPage"
+      render={[Function]}
+    />
+    <Route
+      path="/Calendar"
+      render={[Function]}
+    />
+    <PrivateRoute
+      path="/SearchPage"
+      render={[Function]}
+      token={null}
+    />
+    <PrivateRoute
+      path="/DetailPage/:city"
+      render={[Function]}
+      token={null}
+    />
+    <PrivateRoute
+      path="/StarredListPage"
+      render={[Function]}
+      token={null}
+    />
+    <PrivateRoute
+      path="/Notes"
+      render={[Function]}
+      token={null}
+    />
+    <Route
+      path="/aboutUs"
+      render={[Function]}
+    />
+  </Switch>
+  <Copyright />
+</BrowserRouter>
+`;

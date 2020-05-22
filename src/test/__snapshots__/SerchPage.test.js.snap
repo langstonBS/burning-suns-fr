@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`First React component test with Enzyme renders without crashing 1`] = `
+<WithStyles(ForwardRef(Container))
+  component="main"
+  maxWidth="xs"
+>
+  <div
+    className="makeStyles-paper-1"
+  >
+    <WithStyles(ForwardRef(Avatar))
+      className="makeStyles-avatar-2"
+    >
+      <LockOutlinedIcon />
+    </WithStyles(ForwardRef(Avatar))>
+    <WithStyles(ForwardRef(Typography))
+      component="h1"
+      variant="h5"
+    >
+      Search by City
+    </WithStyles(ForwardRef(Typography))>
+    <form
+      className="makeStyles-form-3"
+      noValidate={true}
+      onSubmit={[Function]}
+    >
+      <WithStyles(ForwardRef(TextField))
+        autoComplete="city"
+        autoFocus={true}
+        error={false}
+        fullWidth={true}
+        id="city"
+        label="City Name"
+        margin="normal"
+        name="city"
+        onChange={[Function]}
+        required={true}
+        variant="outlined"
+      />
+      <WithStyles(ForwardRef(Button))
+        className="makeStyles-submit-4"
+        color="primary"
+        fullWidth={true}
+        type="submit"
+        variant="contained"
+      >
+        Search
+      </WithStyles(ForwardRef(Button))>
+    </form>
+  </div>
+</WithStyles(ForwardRef(Container))>
+`;
