@@ -1,0 +1,25 @@
+.AboutUsStyle {
+    border: black 1px solid;
+    border-radius: 1.5em;
+    background-color: rgba(128, 128, 128, 0.178);
+    width: 300px;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 1em;
+  
+  }
+
+  img {
+      max-width: 200px;
+      border-radius: 1.5em;
+  }
+
+  h2 {
+    text-transform: uppercase;
+  }
+
+  p {
+    line-height: .5em;
+  }
