@@ -6,13 +6,13 @@ exports[`First React component test with Enzyme renders without crashing 1`] = `
     className="AboutUsStyle"
   >
     <div
-      className="immageContainer"
+      className="imageContainer"
     >
       <h2>
         me
       </h2>
       <div
-        className="immageContatin"
+        className="imageContainer"
       >
         <img
           alt="space the finial frontear"

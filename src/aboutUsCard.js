@@ -7,9 +7,9 @@ export default class aboutUsCard extends Component {
         return (
             <div>
                 <li className="AboutUsStyle">
-                    <div className="immageContainer">
+                    <div className="imageContainer">
                         <h2>{this.props.name}</h2>
-                    <div className="immageContatin">
+                    <div className="imageContainer">
                         <img alt={this.props.alt}
                         src={this.props.photo}></img>
                     </div> 
