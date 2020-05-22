@@ -23,6 +23,11 @@ This repository contains the React app only. The deployed Node server is availab
 
 The deployed application can be viewed at [https://burningsuns.herokuapp.com/](https://burningsuns.herokuapp.com/).
 
+### Meta (TA Reference)
+
+- [Miro Board](https://miro.com/app/board/o9J_ksGGC_8=/)
+- Back end test screenshots are available in the back end [repo](https://github.com/PeepTheMoon/burning-suns-be).
+
 ## Development Team
 
 🌠 Langston Beckwith-Stanley [@langstonBS](https://github.com/langstonBS)
