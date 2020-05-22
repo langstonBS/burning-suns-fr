@@ -5,6 +5,7 @@ import rPhoto from './rachel.jpg'
 import Card from './aboutUsCard'
 
 import './aboutUs.css'
+// fix
 
 export default class aboutUs extends Component {
 
