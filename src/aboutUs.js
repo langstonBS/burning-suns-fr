@@ -4,7 +4,7 @@ import mPhoto from './melisa.jpg'
 import Card from './aboutUsCard'
 
 import './aboutUs.css'
-
+//this is the about page
 
 export default class aboutUs extends Component {
 
