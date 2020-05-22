@@ -9,6 +9,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Hidden from '@material-ui/core/Hidden';
 import Link from '@material-ui/core/Link';
+import DeleteSharpIcon from '@material-ui/icons/DeleteSharp';
 
 const useStyles = makeStyles({
   card: {
@@ -25,6 +26,9 @@ const useStyles = makeStyles({
 export default function FeaturedPost(props) {
   const classes = useStyles();
   const { post } = props;
+//const moment = require('moment');
+//moment().format();
+//const cleanDate = moment(DATEVAR, 'MM-DD-YYYY').format('ll');
 
   return (
     <Grid item xs={12} md={6}>
@@ -36,10 +40,13 @@ export default function FeaturedPost(props) {
                 {post.title}
               </Typography>
               <Typography variant="subtitle1" color="textSecondary">
-                {post.date}
+                {post.date} 
               </Typography>
               <Typography variant="subtitle1" paragraph>
                 {post.body}
+              </Typography>
+              <Typography variant="subtitle1" paragraph>
+                {post.city}
               </Typography>
               <Link>
                 <Typography variant="subtitle1" color="primary">
@@ -51,6 +58,7 @@ export default function FeaturedPost(props) {
  
               }
             </CardContent>
+            <DeleteSharpIcon className={classes.icon} />
           </div>
           <Hidden xsDown>
             <CardMedia className={

@@ -34,7 +34,7 @@ export default function NoteForm(props) {
     const notesEnd = '/api/notes'
     const cityEnd = '/api/saved-locations'
     
-    const [date, setDate] = useState((new Date()).toDateString()) //Listens to dropdown from datePicker
+    const [date, setDate] = useState(new Date()) //Listens to dropdown from datePicker
     const [title, setTitle] = useState("") //Set in the note form
     const [body, setBody] = useState("") //Set in the note form
     const [wish, setWish] = useState(false) //Set in the note form by the checkbox
@@ -43,9 +43,6 @@ export default function NoteForm(props) {
     const [starredCities, setStarredCities] = useState(['']) //Queried from the database
 
     const [locObj, setLocObj] = useState('') //Set from the dropdown of the starred cities
-    const [lat, setLat] = useState("") //Based on the locObj before sent to post endpoint
-    const [lon, setLon] = useState("") //Based on the locObj before sent to post endpoint
-    const [city, setCity] = useState("") //Based on the locObj before sent to post endpoint
 
     useEffect(() => {
         try {
@@ -63,9 +60,12 @@ export default function NoteForm(props) {
             console.error(e)
         }
     }
+
     
     const postNote = async (e) => {
+        
         e.preventDefault();
+        console.log(props)
         if (title === '') {
             setError('please enter a title')
         }
@@ -73,14 +73,11 @@ export default function NoteForm(props) {
             setError('please add some text to the message')
         }
         try {
-            console.log(date)
-            setLat(locObj.lat)
-            setLon(locObj.lon)
-            setCity(locObj.city)
             const posted = await request
-                .post( url + notesEnd, { lat, lon, city, date, title, body, wish })
+                .post( url + notesEnd, { lat:locObj.lat, lon:locObj.lon, city:locObj.city, date, title, body, wish })
                 .set("Authorization", token);
-            console.log(posted)
+            const notes = await request.get('https://stark-mesa-84010.herokuapp.com/api/notes').set("Authorization", token)
+            props.updateNotes(notes.body)
         } catch (e) {
             console.error(e);
         }
@@ -89,7 +86,7 @@ export default function NoteForm(props) {
     return (
         <div>
             <Container component='main' maxWidth='xs'>
-                <div classname={classes.paper}>
+                <div className={classes.paper}>
                     <Typography variant="h6" gutterBottom>
                         Add a {wish ? 'Wish' : 'Note'}
                     </Typography>
@@ -116,7 +113,7 @@ export default function NoteForm(props) {
                                 >
                                     {starredCities.map((option) => (
                                         <MenuItem
-                                            key={option.city}
+                                            key={`${option.city}, ${option.state}`}
                                             value={option}>
                                             {`${option.city} , ${option.state}`}
                                         </MenuItem>
