@@ -1,14 +1,32 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`First React component test with Enzyme renders without crashing 1`] = `
-<Fragment>
+<div>
   <ul>
-    <aboutUsCard
+    <AboutUsCard
       alt="space the finial frontear"
-      detail="Lorem ipsum dolor sit amet,consectetur adipiscing elit, sed do eiusmod"
-      name="kigers"
+      detail="Nikki, Wishing on stars and VScode"
+      name="Nikki"
       photo="kigers.jpg"
     />
+    <AboutUsCard
+      alt="space the finial frontear"
+      detail="space, there is a lot of it"
+      name="Melissa"
+      photo="melisa.jpg"
+    />
+    <AboutUsCard
+      alt="space the finial frontear"
+      detail="Earth-bound alien."
+      name="Rachel"
+      photo="rachel.jpg"
+    />
+    <AboutUsCard
+      alt="space the finial frontear"
+      detail="There is so much about me to know"
+      name="Langston"
+      photo="melisa.jpg"
+    />
   </ul>
-</Fragment>
+</div>
 `;
