@@ -2,12 +2,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { responsiveFontSizes } from '@material-ui/core/styles';
 import './theme.css';
+import { Container } from '@material-ui/core';
 
 const sam = createMuiTheme({
     palette: {
         primary: {
             light: '#d1c4e9',
-            main: '#fff8e1',
+            main: '#3F51B5',
             dark: '#4527a0',
             contrastText: '#fff',
         },
@@ -23,9 +24,24 @@ const sam = createMuiTheme({
         fontFamily: 'Times New Roman',
 
         h1: {
-            // fontFamily: 'Helvetica Neue',
-            fontSize: '3.5em',
-        }
+            fontFamily: 'Helvetica Neue',
+            fontSize: '4em',
+            fontWeight: 'bolder',
+            textAlign:'center'
+        },
+        h2: {
+            fontFamily: 'Helvetica Neue',
+            fontSize: '1em',
+        },
+        h6: {
+            fontFamily: 'Helvetica Neue',
+            fontSize: '1em',
+        },
+        p: {
+            fontFamily: 'Helvetica Neue',
+            fontSize: '1em',
+        },
+
     }
 });
 responsiveFontSizes(sam)
@@ -35,6 +51,10 @@ const useStyles = makeStyles(() => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        padding: sam.spacing(2),
+        borderRadius: '20px',
+        opacity: '80%',
+        backgroundColor: sam.palette.primary.light
     },
     avatar: {
         margin: sam.spacing(1),
@@ -49,6 +69,7 @@ const useStyles = makeStyles(() => ({
     submit: {
         margin: sam.spacing(3, 0, 2),
         backgroundColor: sam.palette.primary.main,
+        opacity: '100%',
         
     },
     header: {
