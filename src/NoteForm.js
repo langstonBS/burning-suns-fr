@@ -12,6 +12,7 @@ import { Container } from "@material-ui/core"
 import Button from '@material-ui/core/Button'
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import StarIcon from '@material-ui/icons/Star';
+import moment from 'moment'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -21,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
     },
     form: {
-        width: '100%', // Fix IE 11 issue.
+        width: '100%', // Fix IE 11 issue.v
         marginTop: theme.spacing(3),
     }
 }));
@@ -78,7 +79,7 @@ export default function NoteForm(props) {
             const posted = await request
                 .post( url + notesEnd, { lat:locObj.lat, 
                     lon:locObj.lon, 
-                    city:locObj.city+', '+locObj.state, date:date.toUTCString(), title, body, wish })
+                    city:locObj.city+', '+locObj.state, date:moment(date, 'MM-DD-YYYY').format('ll'), title, body, wish })
                 .set("Authorization", token);
             const notes = await request.get('https://stark-mesa-84010.herokuapp.com/api/notes').set("Authorization", token)
             props.updateNotes(notes.body)
