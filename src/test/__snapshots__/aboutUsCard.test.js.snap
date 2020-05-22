@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`First React component test with Enzyme renders without crashing 1`] = `
+<div>
+  <li
+    className="AboutUsStyle"
+  >
+    <div
+      className="immageContainer"
+    >
+      <h2>
+        me
+      </h2>
+      <div
+        className="immageContatin"
+      >
+        <img
+          alt="space the finial frontear"
+          src="kigers.jpg"
+        />
+      </div>
+      <WithStyles(ForwardRef(Typography))>
+        Lorem ipsum dolor sit amet, 
+        consectetur adipiscing elit, sed do eiusmod
+         tempor incididunt ut labore et dolore magna
+         aliqua. In hendrerit gravida rutrum quisque non
+          tellus orci ac. Lorem mollis aliquam ut porttitor
+          leo a diam sollicitudin tempor. Vitae congue mauris
+           rhoncus aenean vel elit scelerisque mauris. Leo duis u
+           t diam quam. Vitae nunc sed velit dignissim sodales ut
+           eu sem. A pellentesque sit amet porttitor eget dolor morbi
+            non.
+      </WithStyles(ForwardRef(Typography))>
+    </div>
+  </li>
+</div>
+`;

@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`First React component test with Enzyme renders without crashing 1`] = `
+<div>
+  <ul
+    className="makeStyles-header-5"
+    variant="h6"
+  >
+    <li>
+      Welcome!
+    </li>
+    <li>
+      <Link
+        to="/SearchPage"
+      >
+        Search Cities
+      </Link>
+    </li>
+    <li>
+      <Link
+        to="/StarredListpage"
+      >
+        Starred List
+      </Link>
+    </li>
+    <li>
+      <Link
+        to="/Notes"
+      >
+        Notes
+      </Link>
+    </li>
+    <li>
+      <Link
+        to="/aboutUs"
+      >
+        About Us
+      </Link>
+       
+    </li>
+    <li>
+      <Link
+        onClick={[Function]}
+        to="/SignInPage"
+      >
+        <div>
+          Logout
+        </div>
+      </Link>
+    </li>
+  </ul>
+</div>
+`;

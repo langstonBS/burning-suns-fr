@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react"
 import request from "superagent"
+import Brightness3Icon from '@material-ui/icons/Brightness3';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
+import StarIcon from '@material-ui/icons/Star';
+
 
 import Post from "./Post.js"
 import NoteForm from './NoteForm'

@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`First React component test with Enzyme renders without crashing 1`] = `
+<div>
+  <LogIn
+    link={
+      <ForwardRef(WithStyles)
+        href="/signInPage"
+        variant="body2"
+      >
+        If you do have an acount Sign In
+      </ForwardRef(WithStyles)>
+    }
+    title="Sign Up"
+    url="https://stark-mesa-84010.herokuapp.com/auth/signup"
+  />
+</div>
+`;

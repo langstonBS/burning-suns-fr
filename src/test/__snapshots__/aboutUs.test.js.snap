@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`First React component test with Enzyme renders without crashing 1`] = `
+<Fragment>
+  <ul>
+    <aboutUsCard
+      alt="space the finial frontear"
+      detail="Lorem ipsum dolor sit amet,consectetur adipiscing elit, sed do eiusmod"
+      name="kigers"
+      photo="kigers.jpg"
+    />
+  </ul>
+</Fragment>
+`;
