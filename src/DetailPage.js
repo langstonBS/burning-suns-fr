@@ -45,12 +45,12 @@ export default function DetailPage(props) {
   }, [])
   
   const handleSave = async () => {
-    await request.post('https://stark-mesa-84010.herokuapp.com/api/saved-locations', saveObject).set("Authorization", token)
+    await request.post('${process.env.REACT_APP_URL}/api/saved-locations', saveObject).set("Authorization", token)
     setIsSaved(true)
   }
 
   const handleDelete = async () => {
-    await request.delete('https://stark-mesa-84010.herokuapp.com/api/saved-locations', saveObject).set("Authorization", token)
+    await request.delete('${process.env.REACT_APP_URL}/api/saved-locations', saveObject).set("Authorization", token)
     setIsSaved(false)
   }
 
@@ -129,24 +129,28 @@ export default function DetailPage(props) {
   );
 
   // function to get data objects from APIs
+
+  // wow, this is an advanced and complex piece of hook logic! nice work!
   async function renderDetails() {
     // get the target location data
     const locFetch = await request
-      .get(`https://stark-mesa-84010.herokuapp.com/api/location/${cityName}`)
+      // this stuff could have been stored in and environment variable to save some stress
+      // https://create-react-app.dev/docs/adding-custom-environment-variables/
+      .get(`${process.env.REACT_APP_URL}/api/location/${cityName}`)
       .set("Authorization", token);
 
     setLocData(locFetch.body)
 
     // get the target location's weather data
     const weatherFetch = await request
-      .get(`https://stark-mesa-84010.herokuapp.com/api/weather/${cityName}`)
+      .get(`${process.env.REACT_APP_URL}/api/weather/${cityName}`)
       .set("Authorization", token);
 
     setCurrentData(weatherFetch.body.current)
 
     // get the target location's astro data
     const astroFetch = await request
-      .get(`https://stark-mesa-84010.herokuapp.com/api/astro?lat=${locFetch.body.lat}&long=${locFetch.body.lon}`)
+      .get(`${process.env.REACT_APP_URL}/api/astro?lat=${locFetch.body.lat}&long=${locFetch.body.lon}`)
       .set("Authorization", token);
       
     setAstroData(astroFetch.body)
@@ -162,13 +166,12 @@ export default function DetailPage(props) {
     setSaveObject(newSaveObject)
 
     // get the user's current saves
-    const savesFetch = await request.get('https://stark-mesa-84010.herokuapp.com/api/saved-locations').set("Authorization", token)
+    const savesFetch = await request.get('${process.env.REACT_APP_URL}/api/saved-locations').set("Authorization", token)
 
     // check whether target location is in saves, based on matching city and "state" (or region) values
-    const checkedSave = savesFetch.body.filter(savedLocation => {
-      return savedLocation.city === newSaveObject.city && savedLocation.state === newSaveObject.state
-    })
+    const checkedSave = savesFetch.body.filter(savedLocation => savedLocation.city === newSaveObject.city && savedLocation.state === newSaveObject.state)
 
+    // very cool
     if (checkedSave[0]) { setIsSaved(true) }
   }
 }

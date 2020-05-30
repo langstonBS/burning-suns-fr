@@ -12,6 +12,7 @@ export default class aboutUs extends Component {
         return (
             <div>
                 <ul>
+                    {/* Very nicely componentized! It seems like it would have been nice to have an array of data, then map over it to generate these Cards */}
                     <Card name={'Nikki'}
                         alt={'space the finial frontear'}
                         photo={kPhoto}

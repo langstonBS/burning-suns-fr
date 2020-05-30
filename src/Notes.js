@@ -64,7 +64,7 @@ export default function NotesPage(props) {
                         <Grid container spacing={4}>
                             {notes.map((note) => (
                                 <Post
-                                    key={`${note.title}, ${note.body}`}
+                                    key={`${note.title}, ${note.body}`} // nice
                                     post={note}
                                     token={token}
                                     updateNotes={setNotes}

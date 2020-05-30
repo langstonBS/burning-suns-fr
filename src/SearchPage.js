@@ -5,7 +5,6 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import request from 'superagent';
 
@@ -22,7 +21,7 @@ export default function SearchPage(props) {
   // console.log(city)
 
   useEffect(() => {
-    if (fetch && !badSearch) props.history.push(`/DetailPage/${query}`)
+    if (fetch && !badSearch) props.history.push(`/DetailPage/${query}`) // nice redirect!
   })
 
   const handleSubmit = async (e) => {
@@ -33,7 +32,7 @@ export default function SearchPage(props) {
     setBadSearch()
 
     // test the submitted query with an API call, to make sure it's able to find a location in the dataset
-    const fetch = await request.get(`https://stark-mesa-84010.herokuapp.com/api/location/${query}`).set("Authorization", props.token);
+    const fetch = await request.get(`${process.env.REACT_APP_URL}location/${query}`).set("Authorization", props.token);
 
     console.log(fetch);
     

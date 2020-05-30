@@ -9,7 +9,7 @@ export default function Copyright() {
         <Link color="inherit" href="/aboutUs">
           Burning Suns
         </Link>{' '}
-        {new Date().getFullYear()}
+        {new Date().getFullYear()} 
         {'.'}
       </Typography>
     )

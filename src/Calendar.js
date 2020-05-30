@@ -9,6 +9,7 @@ export default class Sample extends Component {
         value: new Date(),
     }
 
+    // nice work figuring out the signature of react-calendar's onChange callback
     onChange = value => this.setState({ value })
 
     render() {
@@ -20,6 +21,7 @@ export default class Sample extends Component {
                 <header>
                     <h1>Date of Journal</h1>
                 </header>
+                {/* nice organization of css class names! */}
                 <div className="Sample__container">
                     <main className="Sample__container__content">
                         <Calendar
