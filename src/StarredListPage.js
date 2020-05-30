@@ -13,7 +13,7 @@ export default function StarredListPage(props) {
   const [savedLocations, setSavedLocations] = useState([])
 
   async function getUserSaves() {
-    const response = await request.get('https://stark-mesa-84010.herokuapp.com/api/saved-locations').set("Authorization", token)
+    const response = await request.get(`${process.env.REACT_APP_URL}/saved-locations`).set("Authorization", token)
     console.log(response.body)
 
     setSavedLocations(response.body)
@@ -26,10 +26,10 @@ export default function StarredListPage(props) {
 
   const handleDelete = async (saveObject) => {
     // send object for deletion
-    await request.delete('https://stark-mesa-84010.herokuapp.com/api/saved-locations', saveObject).set("Authorization", token)
+    await request.delete(`${process.env.REACT_APP_URL}/saved-locations`, saveObject).set("Authorization", token)
 
     // re-render page with updated save data
-    const response = await request.get('https://stark-mesa-84010.herokuapp.com/api/saved-locations').set("Authorization", token)
+    const response = await request.get(`${process.env.REACT_APP_URL}/saved-locations`).set("Authorization", token)
     setSavedLocations(response.body)
   }
 
@@ -49,7 +49,8 @@ export default function StarredListPage(props) {
                       {location.city}, {location.state}
                     </a>
                   </p>
-                  <Button onClick={() => handleDelete(location)}>Remove from favorites</Button>
+                  {/* great work on this dynamic callback! */}
+                  <Button onClick={() => handleDelete(location) }>Remove from favorites</Button>
                 </div>
               })
             }

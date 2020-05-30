@@ -57,14 +57,13 @@ export default function NoteForm(props) {
 
     const postNote = async (e) => {
         e.preventDefault();
-
-        if (title === '') {
+        if (!title) {
             setError('please enter a title')
         }
-        if (body === '') {
+        if (!body) {
             setError('please add some text to the message')
         }
-        if (locObj === '') {
+        if (!locObj) {
             setError('please choose a city from your list')
         }
         try {

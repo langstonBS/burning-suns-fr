@@ -45,6 +45,8 @@ const sam = createMuiTheme({
     }
 });
 responsiveFontSizes(sam)
+
+// very impressive adaptation of the material ui theme pattern
 const useStyles = makeStyles(() => ({
     paper: {
         marginTop: sam.spacing(8),

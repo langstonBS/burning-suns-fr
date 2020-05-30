@@ -16,7 +16,7 @@ export default function LogIn(props) {
   const [password, setPassword] = useState('');
   const history = useHistory()
   const [error, setError] = useState('');
-  const reg = /.+\@.+\..+/
+  const reg = /.+\@.+\..+/ // amazing use of regex!
 
   const handelSubmit = async (e) => {
     e.preventDefault()
